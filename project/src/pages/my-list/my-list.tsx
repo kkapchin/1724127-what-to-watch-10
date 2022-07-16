@@ -1,4 +1,4 @@
-export default function MyListScreen(): JSX.Element {
+export default function MyList(): JSX.Element {
   const url = '/';
   return (
     <div className="user-page">

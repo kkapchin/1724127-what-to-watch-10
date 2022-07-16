@@ -1,4 +1,4 @@
-import MainScreen from '../../pages/main/main';
+import Main from '../../pages/main/main';
 import { Promo } from '../../types/promo';
 
 type AppProps = {
@@ -6,5 +6,5 @@ type AppProps = {
 }
 
 export default function App({promo}: AppProps): JSX.Element {
-  return <MainScreen promo={promo} />;
+  return <Main promo={promo} />;
 }

@@ -1,4 +1,4 @@
-export default function FilmScreen(): JSX.Element {
+export default function Film(): JSX.Element {
   const url = '/';
   return (
     <>

@@ -1,4 +1,4 @@
-export default function AddReviewScreen(): JSX.Element {
+export default function AddReview(): JSX.Element {
   const url = '/';
   return (
     <section className="film-card film-card--full">

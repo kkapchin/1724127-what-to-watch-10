@@ -5,7 +5,7 @@ type MainScreenProps = {
   promo: Promo,
 }
 
-export default function MainScreen({promo}: MainScreenProps): JSX.Element {
+export default function Main({promo}: MainScreenProps): JSX.Element {
   const url = '/';
   return (
     <>
