@@ -1,5 +1,10 @@
-function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+import MainScreen from '../../pages/main-screen/main-screen';
+import { Promo } from '../../types/promo';
+
+type AppProps = {
+  promo: Promo,
 }
 
-export default App;
+export default function App({promo}: AppProps): JSX.Element {
+  return <MainScreen promo={promo} />;
+}
