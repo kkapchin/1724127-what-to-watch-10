@@ -21,8 +21,8 @@ export default function NotFound(): JSX.Element {
           <br />
           <small>Page not found</small>
         </h1>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <button className="sign-in__btn">Go to main page</button>
+        <Link className="sign-in__btn" to="/" style={{ textDecoration: 'none' }}>
+          Go to main page
         </Link>
       </div>
 
