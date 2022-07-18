@@ -1,11 +1,11 @@
 import FilmCard from '../../components/film-card/film-card';
 import { Promo } from '../../types/promo';
 
-type MainScreenProps = {
+type MainProps = {
   promo: Promo,
 }
 
-export default function Main({promo}: MainScreenProps): JSX.Element {
+export default function Main({promo}: MainProps): JSX.Element {
   const url = '/';
   return (
     <>
