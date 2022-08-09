@@ -1,11 +1,13 @@
-import FilmCard from '../../components/film-card/film-card';
+import FilmList from '../../components/film-list/film-list';
+import { Films } from '../../types/films';
 import { Promo } from '../../types/promo';
 
 type MainProps = {
   promo: Promo,
+  films: Films,
 }
 
-export default function Main({promo}: MainProps): JSX.Element {
+export default function Main({promo, films}: MainProps): JSX.Element {
   const url = '/';
   return (
     <>
@@ -107,28 +109,7 @@ export default function Main({promo}: MainProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
+          <FilmList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

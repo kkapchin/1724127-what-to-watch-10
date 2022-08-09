@@ -7,20 +7,22 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
+import { Films } from '../../types/films';
 import { Promo } from '../../types/promo';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   promo: Promo,
+  films: Films,
 }
 
-export default function App({promo}: AppProps): JSX.Element {
+export default function App({promo, films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main promo={promo} />}
+          element={<Main promo={promo} films={films} />}
         />
         <Route
           path={AppRoute.SignIn}
@@ -30,32 +32,32 @@ export default function App({promo}: AppProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <MyList />
+              <MyList films={films} />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Film}
-          element={<Film />}
+          element={<Film films={films} />}
         />
         <Route
           path={AppRoute.AddReview}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <AddReview />
+              <AddReview films={films} />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Player}
-          element={<Player />}
+          element={<Player films={films} />}
         />
         <Route
-          path="*"
+          path={AppRoute.NotFound}
           element={<NotFound/>}
         />
       </Routes>

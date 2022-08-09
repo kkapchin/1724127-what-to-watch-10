@@ -1,4 +1,10 @@
-export default function AddReview(): JSX.Element {
+import { Films } from '../../types/films';
+
+type AddReviewProps = {
+  films: Films
+}
+
+export default function AddReview({films}: AddReviewProps): JSX.Element {
   const url = '/';
   return (
     <section className="film-card film-card--full">
