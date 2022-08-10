@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { Films } from '../../types/films';
+import NotFound from '../not-found/not-found';
 
 type FilmProps = {
   films: Films,
@@ -8,6 +9,11 @@ type FilmProps = {
 export default function Film({films}: FilmProps): JSX.Element {
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
+
+  if(film === undefined) {
+    return <NotFound />;
+  }
+
   const {
     backgroundImage,
     name,
@@ -180,10 +186,4 @@ export default function Film({films}: FilmProps): JSX.Element {
       </div>
     </>
   );
-  //}
-  /* return (
-    <>
-      {navigate(AppRoute.NotFound)}
-    </>
-  ); */
 }

@@ -1,16 +1,36 @@
+import { ChangeEvent, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { Films } from '../../types/films';
+import NotFound from '../not-found/not-found';
 
 type AddReviewProps = {
   films: Films
 }
 
 export default function AddReview({films}: AddReviewProps): JSX.Element {
+  const { id } = useParams();
+  const film = films.filter((movie) => movie.id === Number(id))[0];
+  const [comment, setComment] = useState('');
+
+  if(film === undefined) {
+    return <NotFound />;
+  }
+
+  const {
+    backgroundImage,
+    name,
+    posterImage,
+  } = film;
   const url = '/';
+  const handleCommentChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(target.value);
+  };
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -27,10 +47,10 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href={url} className="breadcrumbs__link">Add review</a>
+                <Link to={`/films/${id}/review`} className="breadcrumbs__link">Add review</Link>
               </li>
             </ul>
           </nav>
@@ -48,7 +68,7 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
         </div>
       </div>
 
@@ -89,7 +109,15 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+            <textarea
+              className="add-review__textarea"
+              name="review-text"
+              id="review-text"
+              placeholder="Review text"
+              onChange={handleCommentChange}
+              value={comment}
+            >
+            </textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
