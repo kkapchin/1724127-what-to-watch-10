@@ -1,12 +1,12 @@
 import FilmList from '../../components/film-list/film-list';
-import { Films } from '../../types/films';
+import { Movie } from '../../types/movie';
 
 type MyListProps = {
-  films: Films
+  films: Movie[]
 }
 
 export default function MyList({films}: MyListProps): JSX.Element {
-  const favoriteFilms = films.filter((film) => film.isFavorite === true);
+  const favoriteFilms = films.filter((film) => film.isFavorite);
   const url = '/';
   return (
     <div className="user-page">
@@ -19,7 +19,7 @@ export default function MyList({films}: MyListProps): JSX.Element {
           </a>
         </div>
 
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{favoriteFilms.length}</span></h1>
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">

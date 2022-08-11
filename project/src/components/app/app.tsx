@@ -7,13 +7,13 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
-import { Films } from '../../types/films';
+import { Movie } from '../../types/movie';
 import { Promo } from '../../types/promo';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
   promo: Promo,
-  films: Films,
+  films: Movie[],
 }
 
 export default function App({promo, films}: AppProps): JSX.Element {
@@ -22,7 +22,12 @@ export default function App({promo, films}: AppProps): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main promo={promo} films={films} />}
+          element={
+            <Main
+              promo={promo}
+              films={films}
+            />
+          }
         />
         <Route
           path={AppRoute.SignIn}

@@ -1,10 +1,10 @@
 import FilmList from '../../components/film-list/film-list';
-import { Films } from '../../types/films';
+import { Movie } from '../../types/movie';
 import { Promo } from '../../types/promo';
 
 type MainProps = {
   promo: Promo,
-  films: Films,
+  films: Movie[],
 }
 
 export default function Main({promo, films}: MainProps): JSX.Element {

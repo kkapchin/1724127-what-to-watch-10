@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { Movie } from '../../types/movie';
 
 type FilmCardProps = {
-  film: Film,
-  mouseOverHandler: (film: Film) => void,
+  film: Movie,
+  mouseOverHandler: (film: Movie) => void,
 }
 
 export default function FilmCard({film, mouseOverHandler}: FilmCardProps): JSX.Element {

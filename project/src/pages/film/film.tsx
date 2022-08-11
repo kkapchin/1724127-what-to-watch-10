@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
-import { Films } from '../../types/films';
+import { Movie } from '../../types/movie';
 import NotFound from '../not-found/not-found';
 
 type FilmProps = {
-  films: Films,
+  films: Movie[],
 }
 
 export default function Film({films}: FilmProps): JSX.Element {

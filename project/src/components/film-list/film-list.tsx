@@ -1,15 +1,15 @@
 import React from 'react';
-import { Film, Films } from '../../types/films';
+import { Movie } from '../../types/movie';
 import FilmCard from '../film-card/film-card';
 
 type FilmListProps = {
-  films: Films,
+  films: Movie[],
 }
 
 export default function FilmList({films}: FilmListProps): JSX.Element {
   const [, setActiveCard] = React.useState({});
 
-  const mouseOverHandler = (film: Film): void => {
+  const mouseOverHandler = (film: Movie): void => {
     setActiveCard(film);
   };
 
