@@ -1,11 +1,11 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-type AddReviewTextProps = {
-  comment: string,
-  handleCommentChange: ({target}: ChangeEvent<HTMLTextAreaElement>) => void,
-}
+export default function AddReviewText(): JSX.Element {
+  const [comment, setComment] = useState('');
+  const handleCommentChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(target.value);
+  };
 
-export default function AddReviewText({comment, handleCommentChange}: AddReviewTextProps): JSX.Element {
   return (
     <textarea
       className="add-review__textarea"

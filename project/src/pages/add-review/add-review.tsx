@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AddReviewText from '../../components/add-review-text/add-review-text';
 import { Movie } from '../../types/movie';
@@ -11,7 +10,6 @@ type AddReviewProps = {
 export default function AddReview({films}: AddReviewProps): JSX.Element {
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
-  const [comment, setComment] = useState('');
 
   if(film === undefined) {
     return <NotFound />;
@@ -23,9 +21,6 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
     posterImage,
   } = film;
   const url = '/';
-  const handleCommentChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(target.value);
-  };
 
   return (
     <section className="film-card film-card--full">
@@ -110,10 +105,7 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <AddReviewText
-              comment={comment}
-              handleCommentChange={handleCommentChange}
-            />
+            <AddReviewText />
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
