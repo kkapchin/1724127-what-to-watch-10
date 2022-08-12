@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import AddReviewText from '../../components/add-review-text/add-review-text';
 import { Movie } from '../../types/movie';
 import NotFound from '../not-found/not-found';
 
@@ -109,15 +110,10 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea
-              className="add-review__textarea"
-              name="review-text"
-              id="review-text"
-              placeholder="Review text"
-              onChange={handleCommentChange}
-              value={comment}
-            >
-            </textarea>
+            <AddReviewText
+              comment={comment}
+              handleCommentChange={handleCommentChange}
+            />
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
