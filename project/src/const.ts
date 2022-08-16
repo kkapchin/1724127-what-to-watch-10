@@ -1,3 +1,23 @@
+export const BLANK_FILM = {
+  id: Number(null),
+  name: '',
+  posterImage: '',
+  previewImage: '',
+  backgroundImage: '',
+  backgroundColor: '',
+  videoLink: '',
+  previewVideoLink: '',
+  description: '',
+  rating: Number(null),
+  scoresCount: Number(null),
+  director: '',
+  starring: [''],
+  runTime: Number(null),
+  genre: '',
+  released: Number(null),
+  isFavorite: false,
+};
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
