@@ -46,3 +46,9 @@ export enum Genre {
   SciFi = 'Sci-Fi',
   Thrillers = 'Thrillers',
 }
+
+export enum Tab {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}

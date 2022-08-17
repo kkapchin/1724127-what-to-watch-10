@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import Tabs from '../../components/tabs/tabs';
 import { Movie } from '../../types/movie';
 import NotFound from '../not-found/not-found';
 
@@ -9,6 +10,7 @@ type FilmProps = {
 export default function Film({films}: FilmProps): JSX.Element {
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
+  const favoriteFilms = films.filter((movie) => movie.isFavorite);
 
   if(film === undefined) {
     return <NotFound />;
@@ -20,11 +22,6 @@ export default function Film({films}: FilmProps): JSX.Element {
     genre,
     released,
     posterImage,
-    rating,
-    scoresCount,
-    description,
-    director,
-    starring,
   } = film;
   const url = '/';
   return (
@@ -78,7 +75,7 @@ export default function Film({films}: FilmProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
                 <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
@@ -92,37 +89,7 @@ export default function Film({films}: FilmProps): JSX.Element {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href={url}className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href={url} className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href={url} className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{description}</p>
-
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {starring.join(', ')} and other</strong></p>
-              </div>
-            </div>
+            <Tabs film={film} />
           </div>
         </div>
       </section>
