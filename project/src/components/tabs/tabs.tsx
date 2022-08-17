@@ -32,7 +32,7 @@ export default function Tabs({ film }: TabsProps): JSX.Element {
         </ul>
       </nav>
       {activeTab === Tab.Overview ? <Overview film={film} /> : ''}
-      {activeTab === Tab.Details ? <Details /> : ''}
+      {activeTab === Tab.Details ? <Details film={film} /> : ''}
       {activeTab === Tab.Reviews ? <Reviews /> : ''}
     </div>
   );

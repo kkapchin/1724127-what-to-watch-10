@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import { Movie } from '../../types/movie';
 
-type OverviewTabProps = {
+type OverviewProps = {
   film: Movie;
 }
 
-export default function Overview({film}: OverviewTabProps): JSX.Element {
+export default function Overview({film}: OverviewProps): JSX.Element {
   const {
     rating,
     scoresCount,
