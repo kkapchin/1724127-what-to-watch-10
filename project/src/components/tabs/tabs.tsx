@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab } from '../../const';
+import { reviews } from '../../mocks/reviews';
 import { Movie } from '../../types/movie';
 import Details from './details';
 import Overview from './overview';
@@ -11,6 +12,7 @@ type TabsProps = {
 }
 export default function Tabs({ film }: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState(Tab.Overview);
+  const getReviews = () => reviews;
 
   return (
     <div className="film-card__desc">
@@ -33,7 +35,7 @@ export default function Tabs({ film }: TabsProps): JSX.Element {
       </nav>
       {activeTab === Tab.Overview ? <Overview film={film} /> : ''}
       {activeTab === Tab.Details ? <Details film={film} /> : ''}
-      {activeTab === Tab.Reviews ? <Reviews /> : ''}
+      {activeTab === Tab.Reviews ? <Reviews reviews={getReviews()} /> : ''}
     </div>
   );
 }
