@@ -1,4 +1,4 @@
-import { Comment } from '../../types/comment';
+import { ReviewType } from '../../types/review-type';
 
 const MONTHS = [
   'January',
@@ -16,7 +16,7 @@ const MONTHS = [
 ];
 
 type ReviewProps = {
-  review: Comment
+  review: ReviewType
 }
 
 export default function Review({review}: ReviewProps): JSX.Element {

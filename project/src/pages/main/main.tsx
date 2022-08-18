@@ -1,12 +1,12 @@
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { Movie } from '../../types/movie';
-import { Promo } from '../../types/promo';
+import { FilmType } from '../../types/film-type';
+import { PromoType } from '../../types/promo-type';
 
 type MainProps = {
-  promo: Promo,
-  films: Movie[],
+  promo: PromoType,
+  films: FilmType[],
 }
 
 export default function Main({promo, films}: MainProps): JSX.Element {

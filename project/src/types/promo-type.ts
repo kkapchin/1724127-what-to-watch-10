@@ -1,4 +1,4 @@
-export type Promo = {
+export type PromoType = {
   title: string,
   genre: string,
   releaseDate: number,

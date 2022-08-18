@@ -1,6 +1,6 @@
-import { Comment } from '../types/comment';
+import { ReviewType } from '../types/comment';
 
-export const reviews: Comment[] = [
+export const reviews: ReviewType[] = [
   {
     comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
     date: 'December 24, 2016 21:54:28 GMT+0300',

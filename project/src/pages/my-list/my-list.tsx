@@ -2,10 +2,10 @@ import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Title from '../../components/header/title';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 
 type MyListProps = {
-  films: Movie[]
+  films: FilmType[]
 }
 
 export default function MyList({films}: MyListProps): JSX.Element {

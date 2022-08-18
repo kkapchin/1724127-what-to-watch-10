@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BLANK_FILM } from '../../const';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 
 const DELAY = 1000;
 
 type FilmCardProps = {
-  film: Movie,
-  setActiveCard: (film: Movie) => void,
+  film: FilmType,
+  setActiveCard: (film: FilmType) => void,
 }
 
 export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Element {

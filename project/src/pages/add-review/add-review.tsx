@@ -2,11 +2,11 @@ import { useParams } from 'react-router-dom';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import Breadcrumbs from '../../components/header/breadcrumbs';
 import Header from '../../components/header/header';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
 type AddReviewProps = {
-  films: Movie[]
+  films: FilmType[]
 }
 
 export default function AddReview({films}: AddReviewProps): JSX.Element {

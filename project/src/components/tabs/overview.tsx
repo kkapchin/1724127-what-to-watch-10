@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 
 type OverviewProps = {
-  film: Movie;
+  film: FilmType;
 }
 
 export default function Overview({film}: OverviewProps): JSX.Element {

@@ -3,11 +3,11 @@ import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
 type FilmProps = {
-  films: Movie[],
+  films: FilmType[],
 }
 
 export default function Film({films}: FilmProps): JSX.Element {

@@ -1,7 +1,7 @@
 import { Genre } from '../const';
-import { Movie } from '../types/movie';
+import { FilmType } from '../types/film-type';
 
-export const films: Movie[] = [
+export const films: FilmType[] = [
   {
     id: 2,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',

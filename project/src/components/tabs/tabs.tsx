@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab } from '../../const';
 import { reviews } from '../../mocks/reviews';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 import Details from './details';
 import Overview from './overview';
 import Reviews from './reviews';
@@ -16,7 +16,7 @@ const TABS = [
 const DEFAULT_TAB = TABS[0];
 
 type TabsProps = {
-  film: Movie,
+  film: FilmType,
 }
 export default function Tabs({ film }: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);

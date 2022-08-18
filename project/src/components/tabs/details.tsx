@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 
 type DetailsProps = {
-  film: Movie,
+  film: FilmType,
 }
 
 export default function Details({film}: DetailsProps): JSX.Element {
