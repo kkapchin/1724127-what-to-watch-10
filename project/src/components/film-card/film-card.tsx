@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BLANK_FILM } from '../../const';
-import { FilmType } from '../../types/film';
+import { FilmType } from '../../types/film-type';
 import VideoPlayer from '../video-player/video-player';
 
 const DELAY = 1000;

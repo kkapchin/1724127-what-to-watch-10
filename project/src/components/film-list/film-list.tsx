@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BLANK_FILM } from '../../const';
-import { FilmType } from '../../types/film';
+import { FilmType } from '../../types/film-type';
 import FilmCard from '../film-card/film-card';
 
 type FilmListProps = {
