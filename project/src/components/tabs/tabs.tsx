@@ -7,21 +7,28 @@ import Details from './details';
 import Overview from './overview';
 import Reviews from './reviews';
 
+const TABS = [
+  'Overview',
+  'Details',
+  'Reviews',
+];
+
+const DEFAULT_TAB = TABS[0];
+
 type TabsProps = {
   film: Movie,
 }
 export default function Tabs({ film }: TabsProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState(Tab.Overview);
-  const getReviews = () => reviews;
+  const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
 
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          {Object.values(Tab).map((tab) => (
+          {TABS.map((tab) => (
             <li
               key={tab}
-              className={`film-nav__item ${activeTab === tab ? 'film-nav__item--active' : ''}`}
+              className={`film-nav__item ${activeTab === tab && 'film-nav__item--active'}`}
             >
               <Link
                 to={''}
@@ -33,9 +40,9 @@ export default function Tabs({ film }: TabsProps): JSX.Element {
           ))}
         </ul>
       </nav>
-      {activeTab === Tab.Overview ? <Overview film={film} /> : ''}
-      {activeTab === Tab.Details ? <Details film={film} /> : ''}
-      {activeTab === Tab.Reviews ? <Reviews reviews={getReviews()} /> : ''}
+      {activeTab === Tab.Overview && <Overview film={film} />}
+      {activeTab === Tab.Details && <Details film={film} />}
+      {activeTab === Tab.Reviews && <Reviews reviews={reviews} />}
     </div>
   );
 }

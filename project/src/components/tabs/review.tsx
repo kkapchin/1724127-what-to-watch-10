@@ -1,6 +1,6 @@
 import { Comment } from '../../types/comment';
 
-const months = [
+const MONTHS = [
   'January',
   'February',
   'March',
@@ -29,7 +29,7 @@ export default function Review({review}: ReviewProps): JSX.Element {
   const titleDate = (isClass = false) => {
     const date = new Date(review.date);
     if(!isClass) {
-      return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+      return `${MONTHS[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     }
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   };
