@@ -38,7 +38,12 @@ export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Elem
           : <img src={posterImage} alt={name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link
+          to={`/films/${id}`}
+          className="small-film-card__link"
+          onClick={() => window.scrollTo(0,0)}
+        >{name}
+        </Link>
       </h3>
     </article>
   );

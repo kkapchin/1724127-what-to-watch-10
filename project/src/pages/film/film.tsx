@@ -1,5 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import { Movie } from '../../types/movie';
 import NotFound from '../not-found/not-found';
@@ -26,8 +28,6 @@ export default function Film({films}: FilmProps): JSX.Element {
     posterImage,
   } = film;
 
-  const url = '/';
-
   return (
     <>
       <section className="film-card film-card--full">
@@ -38,26 +38,7 @@ export default function Film({films}: FilmProps): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a href={url} className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -105,19 +86,7 @@ export default function Film({films}: FilmProps): JSX.Element {
           <FilmList films={similarFilms} />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
