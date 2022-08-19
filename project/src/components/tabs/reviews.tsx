@@ -14,11 +14,13 @@ export default function Reviews({reviews}: ReviewsProps): JSX.Element {
       {reviews2.length > 0 && (
         <div className="film-card__reviews-col">
           {reviews2.map((review) => <Review key={review.id} review={review} />)}
-        </div>)}
+        </div>
+      )}
       {reviews1.length > 0 && (
         <div className="film-card__reviews-col">
           {reviews1.map((review) => <Review key={review.id} review={review} />)}
-        </div>)}
+        </div>
+      )}
     </div>
   );
 }

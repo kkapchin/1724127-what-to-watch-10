@@ -6,6 +6,8 @@ import Tabs from '../../components/tabs/tabs';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
+const SIMILAR_FILMS_COUNT = -4;
+
 type FilmProps = {
   films: FilmType[],
 }
@@ -14,7 +16,7 @@ export default function Film({films}: FilmProps): JSX.Element {
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
   const favoriteFilms = films.filter((movie) => movie.isFavorite);
-  const similarFilms = films.slice(-4);
+  const similarFilms = films.slice(SIMILAR_FILMS_COUNT);
 
   if(film === undefined) {
     return <NotFound />;

@@ -5,7 +5,10 @@ import Title from '../../components/header/title';
 export default function SignIn(): JSX.Element {
   return (
     <div className="user-page">
-      <Header isTitle title={<Title isSignIn />} />
+      <Header
+        isTitle
+        title={<Title isSignIn />}
+      />
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form">

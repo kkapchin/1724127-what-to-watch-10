@@ -13,7 +13,12 @@ export default function MyList({films}: MyListProps): JSX.Element {
   return (
     <div className="user-page">
 
-      <Header isTitle title={<Title isMyList favoriteFilmsCount={favoriteFilms.length} />} />
+      <Header
+        isTitle
+        title={
+          <Title isMyList favoriteFilmsCount={favoriteFilms.length} />
+        }
+      />
 
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>

@@ -15,7 +15,8 @@ export default function Title({ favoriteFilmsCount, isMyList, isSignIn }: TitleP
           <span className="user-page__film-count">
             {favoriteFilmsCount}
           </span>
-        </Fragment>)}
+        </Fragment>
+      )}
       {isSignIn && 'Sign in'}
     </h1>
   );

@@ -13,9 +13,7 @@ export default function Header({ breadcrumbs, title, isTitle, isSignIn }: Header
     <header
       className={`
       page-header
-      ${isTitle
-      ? 'user-page__head'
-      : 'film-card__head'}`}
+      ${isTitle ? 'user-page__head' : 'film-card__head'}`}
     >
       <Logo />
       {breadcrumbs}
