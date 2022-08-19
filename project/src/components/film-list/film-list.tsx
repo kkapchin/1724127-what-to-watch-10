@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { BLANK_FILM } from '../../const';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 import FilmCard from '../film-card/film-card';
 
 type FilmListProps = {
-  films: Movie[],
+  films: FilmType[],
 }
 
 export default function FilmList({films}: FilmListProps): JSX.Element {

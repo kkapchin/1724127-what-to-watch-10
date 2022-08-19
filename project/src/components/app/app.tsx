@@ -7,13 +7,13 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
-import { Movie } from '../../types/movie';
-import { Promo } from '../../types/promo';
+import { FilmType } from '../../types/film-type';
+import { PromoType } from '../../types/promo-type';
 import PrivateRoute from '../private-route/private-route';
 
 type AppProps = {
-  promo: Promo,
-  films: Movie[],
+  promo: PromoType,
+  films: FilmType[],
 }
 
 export default function App({promo, films}: AppProps): JSX.Element {

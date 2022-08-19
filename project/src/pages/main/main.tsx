@@ -1,13 +1,16 @@
 import FilmList from '../../components/film-list/film-list';
-import { Movie } from '../../types/movie';
-import { Promo } from '../../types/promo';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import { FilmType } from '../../types/film-type';
+import { PromoType } from '../../types/promo-type';
 
 type MainProps = {
-  promo: Promo,
-  films: Movie[],
+  promo: PromoType,
+  films: FilmType[],
 }
 
 export default function Main({promo, films}: MainProps): JSX.Element {
+  const favoriteFilms = films.filter((film) => film.isFavorite);
   const url = '/';
   return (
     <>
@@ -18,26 +21,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a href={url} className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href={url} className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header />
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -64,7 +48,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
               </div>
             </div>
@@ -116,19 +100,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href={url} className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

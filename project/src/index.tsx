@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { films } from './mocks/films';
-import { Promo } from './types/promo';
+import { PromoType } from './types/promo-type';
 
-const promo: Promo = {
+const promo: PromoType = {
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
   releaseDate: 2014,

@@ -1,7 +1,7 @@
 import { Genre } from '../const';
-import { Movie } from '../types/movie';
+import { FilmType } from '../types/film-type';
 
-export const films: Movie[] = [
+export const films: FilmType[] = [
   {
     id: 2,
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
@@ -12,11 +12,11 @@ export const films: Movie[] = [
     videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     previewVideoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-    rating: 8.9,
+    rating: 1,
     scoresCount: 240,
     director: 'Wes Anderson',
-    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
-    runTime: 99,
+    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
+    runTime: 180,
     genre: Genre.Comedies,
     released: 2014,
     isFavorite: true,
@@ -34,7 +34,7 @@ export const films: Movie[] = [
     rating: 8.9,
     scoresCount: 240,
     director: 'Wes Anderson',
-    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
+    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
     runTime: 99,
     genre: Genre.Crime,
     released: 2014,
@@ -50,10 +50,10 @@ export const films: Movie[] = [
     videoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     previewVideoLink: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-    rating: 8.9,
+    rating: 5,
     scoresCount: 240,
     director: 'Wes Anderson',
-    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
+    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
     runTime: 99,
     genre: Genre.Documentary,
     released: 2014,
@@ -72,7 +72,7 @@ export const films: Movie[] = [
     rating: 8.9,
     scoresCount: 240,
     director: 'Wes Anderson',
-    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
+    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
     runTime: 99,
     genre: Genre.Thrillers,
     released: 2014,
@@ -91,7 +91,7 @@ export const films: Movie[] = [
     rating: 8.9,
     scoresCount: 240,
     director: 'Wes Anderson',
-    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'],
+    starring: ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Tony Revoloru', 'Tilda Swinton', 'Tom Wilkinson', 'Owen Wilkinson', 'Adrien Brody', 'Ralph Fiennes', 'Jeff Goldblum'],
     runTime: 99,
     genre: Genre.SciFi,
     released: 2014,

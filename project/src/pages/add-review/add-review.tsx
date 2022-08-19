@@ -1,10 +1,12 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import { Movie } from '../../types/movie';
+import Breadcrumbs from '../../components/header/breadcrumbs';
+import Header from '../../components/header/header';
+import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
 type AddReviewProps = {
-  films: Movie[]
+  films: FilmType[]
 }
 
 export default function AddReview({films}: AddReviewProps): JSX.Element {
@@ -20,7 +22,6 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
     name,
     posterImage,
   } = film;
-  const url = '/';
 
   return (
     <section className="film-card film-card--full">
@@ -31,37 +32,7 @@ export default function AddReview({films}: AddReviewProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <Link to={`/films/${id}`} className="breadcrumbs__link">{name}</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <Link to={`/films/${id}/review`} className="breadcrumbs__link">Add review</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href={url} className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header breadcrumbs={<Breadcrumbs id={film.id} name={name} />} />
 
         <div className="film-card__poster film-card__poster--small">
           <img src={posterImage} alt={`${name} poster`} width="218" height="327" />

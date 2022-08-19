@@ -1,14 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
-import { Movie } from '../../types/movie';
+import FilmList from '../../components/film-list/film-list';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import Tabs from '../../components/tabs/tabs';
+import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
+const SIMILAR_FILMS_COUNT = -4;
+
 type FilmProps = {
-  films: Movie[],
+  films: FilmType[],
 }
 
 export default function Film({films}: FilmProps): JSX.Element {
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
+  const favoriteFilms = films.filter((movie) => movie.isFavorite);
+  const similarFilms = films.slice(SIMILAR_FILMS_COUNT);
 
   if(film === undefined) {
     return <NotFound />;
@@ -20,13 +28,8 @@ export default function Film({films}: FilmProps): JSX.Element {
     genre,
     released,
     posterImage,
-    rating,
-    scoresCount,
-    description,
-    director,
-    starring,
   } = film;
-  const url = '/';
+
   return (
     <>
       <section className="film-card film-card--full">
@@ -37,26 +40,7 @@ export default function Film({films}: FilmProps): JSX.Element {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a href={url} className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <Header />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -78,7 +62,7 @@ export default function Film({films}: FilmProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
                 <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
@@ -92,37 +76,7 @@ export default function Film({films}: FilmProps): JSX.Element {
               <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href={url}className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href={url} className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href={url} className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{description}</p>
-
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {starring.join(', ')} and other</strong></p>
-              </div>
-            </div>
+            <Tabs film={film} />
           </div>
         </div>
       </section>
@@ -131,58 +85,10 @@ export default function Film({films}: FilmProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <FilmList films={similarFilms} />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

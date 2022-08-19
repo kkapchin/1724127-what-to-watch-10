@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BLANK_FILM } from '../../const';
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 import VideoPlayer from '../video-player/video-player';
 
 const DELAY = 1000;
 
 type FilmCardProps = {
-  film: Movie,
-  setActiveCard: (film: Movie) => void,
+  film: FilmType,
+  setActiveCard: (film: FilmType) => void,
 }
 
 export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Element {
@@ -38,7 +38,12 @@ export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Elem
           : <img src={posterImage} alt={name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link
+          to={`/films/${id}`}
+          className="small-film-card__link"
+          onClick={() => window.scrollTo(0,0)}
+        >{name}
+        </Link>
       </h3>
     </article>
   );

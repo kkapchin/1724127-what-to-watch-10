@@ -1,7 +1,7 @@
-import { Movie } from '../../types/movie';
+import { FilmType } from '../../types/film-type';
 
 type PlayerProps = {
-  films: Movie[]
+  films: FilmType[]
 }
 
 export default function Player({films}: PlayerProps): JSX.Element {
