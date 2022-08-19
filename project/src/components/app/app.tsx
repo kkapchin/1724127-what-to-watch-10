@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import AddReview from '../../pages/add-review/add-review';
 import Film from '../../pages/film/film';
 import Main from '../../pages/main/main';
@@ -7,16 +8,13 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
-import { FilmType } from '../../types/film-type';
-import { PromoType } from '../../types/promo-type';
 import PrivateRoute from '../private-route/private-route';
 
-type AppProps = {
-  promo: PromoType,
-  films: FilmType[],
-}
+export default function App(): JSX.Element {
 
-export default function App({promo, films}: AppProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
+  const promo = useAppSelector((state) => state.promo);
+
   return (
     <BrowserRouter>
       <Routes>

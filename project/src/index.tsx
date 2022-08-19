@@ -1,14 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { films } from './mocks/films';
-import { PromoType } from './types/promo-type';
-
-const promo: PromoType = {
-  title: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  releaseDate: 2014,
-};
+import { store } from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -16,9 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      promo={promo}
-      films={films}
-    />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );

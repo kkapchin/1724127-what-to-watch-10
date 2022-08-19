@@ -27,7 +27,7 @@ export default function Tabs({ film }: TabsProps): JSX.Element {
         <ul className="film-nav__list">
           {TABS.map((tab) => (
             <li
-              key={tab}
+              key={TABS.indexOf(tab)}
               className={`film-nav__item ${activeTab === tab && 'film-nav__item--active'}`}
             >
               <Link
