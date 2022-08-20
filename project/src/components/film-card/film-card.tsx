@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BLANK_FILM } from '../../const';
 import { FilmType } from '../../types/film-type';
@@ -9,22 +8,19 @@ const DELAY = 1000;
 type FilmCardProps = {
   film: FilmType,
   setActiveCard: (film: FilmType) => void,
+  isActive: boolean,
 }
 
-export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Element {
+export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps): JSX.Element {
   const {name, posterImage, id, previewVideoLink} = film;
 
   const handleMouseOver = () => {
-    setActiveCard(film);
-    setTimeout(setIsPlaying, DELAY, true);
+    setTimeout(setActiveCard, DELAY, film);
   };
 
   const handleMouseLeave = () => {
     setActiveCard(BLANK_FILM);
-    setTimeout(setIsPlaying, DELAY, false);
   };
-
-  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <article className="small-film-card catalog__films-card">
@@ -33,7 +29,7 @@ export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Elem
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        {isPlaying
+        {isActive
           ? <VideoPlayer src={previewVideoLink} poster={posterImage} />
           : <img src={posterImage} alt={name} width="280" height="175" />}
       </div>
