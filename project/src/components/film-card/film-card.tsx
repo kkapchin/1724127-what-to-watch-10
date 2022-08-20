@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BLANK_FILM } from '../../const';
 import { FilmType } from '../../types/film-type';
@@ -12,13 +13,17 @@ type FilmCardProps = {
 }
 
 export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps): JSX.Element {
+
+  const [timeoutId, setTimeoutId] = useState(Number);
+
   const {name, posterImage, id, previewVideoLink} = film;
 
   const handleMouseOver = () => {
-    setTimeout(setActiveCard, DELAY, film);
+    setTimeoutId(setTimeout(setActiveCard, DELAY, film));
   };
 
   const handleMouseLeave = () => {
+    clearTimeout(timeoutId);
     setActiveCard(BLANK_FILM);
   };
 
