@@ -27,6 +27,10 @@ export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps)
     setActiveCard(BLANK_FILM);
   };
 
+  const scrollUp = () => {
+    window.scrollTo(0,0);
+  };
+
   return (
     <article className="small-film-card catalog__films-card">
       <div
@@ -42,7 +46,7 @@ export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps)
         <Link
           to={`/films/${id}`}
           className="small-film-card__link"
-          onClick={() => window.scrollTo(0,0)}
+          onClick={scrollUp}
         >{name}
         </Link>
       </h3>
