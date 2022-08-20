@@ -7,7 +7,7 @@ type FilmListProps = {
   films: FilmType[],
 }
 
-export default function FilmList({films}: FilmListProps): JSX.Element {
+export default function FilmList({ films }: FilmListProps): JSX.Element {
   const [activeCard, setActiveCard] = useState(BLANK_FILM);
 
   return (

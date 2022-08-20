@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
+import ShowMoreButton from '../../components/show-more-button.tsx/show-more-button';
+import { DEFAULT_FILMS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { FilmType } from '../../types/film-type';
 
@@ -12,7 +15,9 @@ type MainProps = {
 
 export default function Main({promo, films}: MainProps): JSX.Element {
 
+  const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
   const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
+  const renderedFilms = films.slice(0, filmsCount);
 
   return (
     <>
@@ -62,13 +67,11 @@ export default function Main({promo, films}: MainProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList />
+          <GenresList setFilmsCount={setFilmsCount} />
 
-          {films && <FilmList films={films} />}
+          {films && <FilmList films={renderedFilms} />}
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {filmsCount < films.length && <ShowMoreButton setFilmsCount={setFilmsCount} filmsCount={filmsCount} />}
         </section>
 
         <Footer />
