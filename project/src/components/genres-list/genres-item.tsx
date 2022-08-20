@@ -11,8 +11,8 @@ export default function GenresItem({ genre, activeGenre }: GenresItemProps): JSX
   const dispatch = useAppDispatch();
 
   const handleItemClick = () => {
-    dispatch(changeGenre({genre}));
-    dispatch(filterFilms({genre}));
+    dispatch(changeGenre(genre));
+    dispatch(filterFilms(genre));
   };
 
   return (

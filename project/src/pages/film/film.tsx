@@ -19,8 +19,8 @@ export default function Film({films}: FilmProps): JSX.Element {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(changeGenre({genre: DEFAULT_GENRE}));
-    dispatch(filterFilms({genre: DEFAULT_GENRE}));
+    dispatch(changeGenre(DEFAULT_GENRE));
+    dispatch(filterFilms(DEFAULT_GENRE));
   });
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];

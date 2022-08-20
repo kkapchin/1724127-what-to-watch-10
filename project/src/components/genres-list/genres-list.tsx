@@ -7,14 +7,13 @@ export default function GenresList() {
 
   return (
     <ul className="catalog__genres-list">
-      {GENRES
-        .map((genre) => (
-          <GenresItem
-            key={GENRES.indexOf(genre)}
-            genre={genre}
-            activeGenre={activeGenre}
-          />)
-        )}
+      {GENRES.map((genre) => (
+        <GenresItem
+          key={genre}
+          genre={genre}
+          activeGenre={activeGenre}
+        />
+      ))}
     </ul>
   );
 }
