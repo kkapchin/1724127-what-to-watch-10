@@ -1,22 +1,31 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
+import { DEFAULT_GENRE } from '../../const';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { changeGenre, filterFilms } from '../../store/action';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
-
-const SIMILAR_FILMS_COUNT = -4;
 
 type FilmProps = {
   films: FilmType[],
 }
 
 export default function Film({films}: FilmProps): JSX.Element {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeGenre(DEFAULT_GENRE));
+    dispatch(filterFilms(DEFAULT_GENRE));
+  });
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
-  const favoriteFilms = films.filter((movie) => movie.isFavorite);
-  const similarFilms = films.slice(SIMILAR_FILMS_COUNT);
+  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
 
   if(film === undefined) {
     return <NotFound />;

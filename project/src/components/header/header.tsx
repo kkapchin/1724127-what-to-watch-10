@@ -11,9 +11,7 @@ type HeaderProps = {
 export default function Header({ breadcrumbs, title, isTitle, isSignIn }: HeaderProps): JSX.Element {
   return (
     <header
-      className={`
-      page-header
-      ${isTitle ? 'user-page__head' : 'film-card__head'}`}
+      className={`page-header ${isTitle ? 'user-page__head' : 'film-card__head'}`}
     >
       <Logo />
       {breadcrumbs}
