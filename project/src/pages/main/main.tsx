@@ -71,7 +71,12 @@ export default function Main({promo, films}: MainProps): JSX.Element {
 
           {films && <FilmList films={renderedFilms} />}
 
-          {filmsCount < films.length && <ShowMoreButton setFilmsCount={setFilmsCount} filmsCount={filmsCount} />}
+          {filmsCount < films.length && (
+            <ShowMoreButton
+              setFilmsCount={setFilmsCount}
+              filmsCount={filmsCount}
+            />
+          )}
         </section>
 
         <Footer />
