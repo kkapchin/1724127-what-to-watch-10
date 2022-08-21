@@ -9,22 +9,27 @@ const DELAY = 1000;
 type FilmCardProps = {
   film: FilmType,
   setActiveCard: (film: FilmType) => void,
+  isActive: boolean,
 }
 
-export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Element {
+export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps): JSX.Element {
+
+  const [timeoutId, setTimeoutId] = useState(Number);
+
   const {name, posterImage, id, previewVideoLink} = film;
 
   const handleMouseOver = () => {
-    setActiveCard(film);
-    setTimeout(setIsPlaying, DELAY, true);
+    setTimeoutId(setTimeout(setActiveCard, DELAY, film));
   };
 
   const handleMouseLeave = () => {
+    clearTimeout(timeoutId);
     setActiveCard(BLANK_FILM);
-    setTimeout(setIsPlaying, DELAY, false);
   };
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const scrollUp = () => {
+    window.scrollTo(0,0);
+  };
 
   return (
     <article className="small-film-card catalog__films-card">
@@ -33,7 +38,7 @@ export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Elem
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        {isPlaying
+        {isActive
           ? <VideoPlayer src={previewVideoLink} poster={posterImage} />
           : <img src={posterImage} alt={name} width="280" height="175" />}
       </div>
@@ -41,7 +46,7 @@ export default function FilmCard({film, setActiveCard}: FilmCardProps): JSX.Elem
         <Link
           to={`/films/${id}`}
           className="small-film-card__link"
-          onClick={() => window.scrollTo(0,0)}
+          onClick={scrollUp}
         >{name}
         </Link>
       </h3>

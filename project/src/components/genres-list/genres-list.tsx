@@ -2,7 +2,11 @@ import { GENRES } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import GenresItem from './genres-item';
 
-export default function GenresList() {
+type GenresListProps = {
+  setFilmsCount: (filmsCount: number) => void,
+}
+
+export default function GenresList({ setFilmsCount }: GenresListProps) {
   const activeGenre = useAppSelector((state) => state.genre);
 
   return (
@@ -12,6 +16,7 @@ export default function GenresList() {
           key={genre}
           genre={genre}
           activeGenre={activeGenre}
+          setFilmsCount={setFilmsCount}
         />
       ))}
     </ul>

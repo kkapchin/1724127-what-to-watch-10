@@ -7,12 +7,19 @@ type FilmListProps = {
   films: FilmType[],
 }
 
-export default function FilmList({films}: FilmListProps): JSX.Element {
-  const [, setActiveCard] = useState(BLANK_FILM);
+export default function FilmList({ films }: FilmListProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState(BLANK_FILM);
 
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <FilmCard film={film} key={film.id} setActiveCard={setActiveCard} />)}
+      {films.map((film) => (
+        <FilmCard
+          film={film}
+          key={film.id}
+          setActiveCard={setActiveCard}
+          isActive={activeCard === film}
+        />
+      ))}
     </div>
   );
 }

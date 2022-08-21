@@ -2,12 +2,12 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_GENRE } from '../const';
 import { films } from '../mocks/films';
 import { promo } from '../mocks/promo-film';
-import { State } from '../types/state-type';
+import { StateType } from '../types/state-type';
 import { changeGenre, filterFilms } from './action';
 
 const SIMILAR_FILMS_COUNT = -4;
 
-const initialState: State = {
+const initialState: StateType = {
   genre: DEFAULT_GENRE,
   films: films,
   favoriteFilms: films.filter((film) => film.isFavorite),

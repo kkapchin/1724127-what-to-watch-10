@@ -1,6 +1,6 @@
 import { FilmType } from './film-type';
 
-export type State = {
+export type StateType = {
   genre: string,
   films: FilmType[],
   favoriteFilms: FilmType[],
