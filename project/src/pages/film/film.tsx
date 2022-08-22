@@ -24,8 +24,7 @@ export default function Film({films}: FilmProps): JSX.Element {
   });
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const { favoriteFilms, similarFilms } = useAppSelector((state) => state);
 
   if(film === undefined) {
     return <NotFound />;

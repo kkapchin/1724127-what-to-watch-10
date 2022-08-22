@@ -8,12 +8,18 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
+import Loading from '../loading/loading';
 import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
-  const films = useAppSelector((state) => state.films);
-  const promo = useAppSelector((state) => state.promo);
+  const {films, promo, isDataLoading} = useAppSelector((state) => state);
+
+  if(isDataLoading) {
+    return (
+      <Loading />
+    );
+  }
 
   return (
     <BrowserRouter>

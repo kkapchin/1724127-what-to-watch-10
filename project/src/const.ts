@@ -34,40 +34,18 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum Genre {
-  Default = 'All genres',
-  Comedies = 'Comedies',
-  Crime = 'Crime',
-  Documentary = 'Documentary',
-  Dramas = 'Dramas',
-  Horror = 'Horror',
-  KidsAndFamily = 'Kids & Family',
-  Romance = 'Romance',
-  SciFi = 'Sci-Fi',
-  Thrillers = 'Thrillers',
-}
-
 export enum Tab {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',
 }
 
-export const GENRES = [
-  'All genres',
-  'Comedies',
-  'Crime',
-  'Documentary',
-  'Dramas',
-  'Horror',
-  'Kids & Family',
-  'Romance',
-  'Sci-Fi',
-  'Thrillers',
-];
-
-export const DEFAULT_GENRE = GENRES[0];
+export const DEFAULT_GENRE = 'All genres';
 
 export const FILMS_COUNT_PER_STEP = 8;
 
 export const DEFAULT_FILMS_COUNT = FILMS_COUNT_PER_STEP;
+
+export enum APIRoute {
+  Films = '/films',
+}

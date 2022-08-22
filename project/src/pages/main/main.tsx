@@ -16,7 +16,7 @@ type MainProps = {
 export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
+  const {favoriteFilms, genreList } = useAppSelector((state) => state);
   const renderedFilms = films.slice(0, filmsCount);
 
   return (
@@ -67,7 +67,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList setFilmsCount={setFilmsCount} />
+          <GenresList setFilmsCount={setFilmsCount} genreList={genreList} />
 
           {films && <FilmList films={renderedFilms} />}
 

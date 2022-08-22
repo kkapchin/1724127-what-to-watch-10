@@ -6,4 +6,6 @@ export type StateType = {
   favoriteFilms: FilmType[],
   promo: FilmType,
   similarFilms: FilmType[],
+  isDataLoading: boolean,
+  genreList: string[],
 }
