@@ -81,7 +81,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
 
           {films && (<FilmsList films={renderedFilms} />)}
 
-          {filmsCount < films.length && (
+          {filmsCount < filteredFilms.length && (
             <ShowMoreButton
               setFilmsCount={setFilmsCount}
               filmsCount={filmsCount}
