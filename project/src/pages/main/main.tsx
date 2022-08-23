@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
@@ -16,7 +16,8 @@ type MainProps = {
 export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
-  const {favoriteFilms, genreList } = useAppSelector((state) => state);
+  const { genresList, allFilms } = useAppSelector((state) => state);
+  const favoriteFilmsCount = allFilms.filter((film) => film.isFavorite).length;
   const renderedFilms = films.slice(0, filmsCount);
 
   return (
@@ -55,7 +56,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{favoriteFilms.length}</span>
+                  <span className="film-card__count">{favoriteFilmsCount}</span>
                 </button>
               </div>
             </div>
@@ -67,9 +68,12 @@ export default function Main({promo, films}: MainProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList setFilmsCount={setFilmsCount} genreList={genreList} />
+          <GenresList
+            setFilmsCount={setFilmsCount}
+            genreList={genresList}
+          />
 
-          {films && <FilmList films={renderedFilms} />}
+          {films && (<FilmsList films={renderedFilms} />)}
 
           {filmsCount < films.length && (
             <ShowMoreButton

@@ -2,10 +2,10 @@ import { FilmType } from './film-type';
 
 export type StateType = {
   genre: string,
+  allFilms: FilmType[],
   films: FilmType[],
-  favoriteFilms: FilmType[],
   promo: FilmType,
   similarFilms: FilmType[],
   isDataLoading: boolean,
-  genreList: string[],
+  genresList: string[],
 }

@@ -8,7 +8,7 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
-import Loading from '../loading/loading';
+import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
@@ -17,7 +17,7 @@ export default function App(): JSX.Element {
 
   if(isDataLoading) {
     return (
-      <Loading />
+      <Loader />
     );
   }
 
