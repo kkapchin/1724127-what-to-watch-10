@@ -13,7 +13,7 @@ import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
-  const {films, promo, isDataLoading} = useAppSelector((state) => state);
+  const { isDataLoading, films, promo } = useAppSelector((state) => state);
 
   if(isDataLoading) {
     return (
@@ -27,10 +27,7 @@ export default function App(): JSX.Element {
         <Route
           path={AppRoute.Main}
           element={
-            <Main
-              promo={promo}
-              films={films}
-            />
+            <Main films={films} promo={promo} />
           }
         />
         <Route
@@ -57,13 +54,13 @@ export default function App(): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <AddReview films={films} />
+              <AddReview />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Player}
-          element={<Player films={films} />}
+          element={<Player />}
         />
         <Route
           path={AppRoute.NotFound}

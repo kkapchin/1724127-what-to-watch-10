@@ -2,15 +2,17 @@ import { useParams } from 'react-router-dom';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import Breadcrumbs from '../../components/header/breadcrumbs';
 import Header from '../../components/header/header';
-import { FilmType } from '../../types/film-type';
+import { useAppSelector } from '../../hooks/use-app-selector';
+//import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
-type AddReviewProps = {
+/* type AddReviewProps = {
   films: FilmType[]
-}
+} */
 
-export default function AddReview({films}: AddReviewProps): JSX.Element {
+export default function AddReview(): JSX.Element {
   const { id } = useParams();
+  const { films } = useAppSelector((state) => state);
   const film = films.filter((movie) => movie.id === Number(id))[0];
 
   if(film === undefined) {

@@ -7,7 +7,7 @@ import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import { DEFAULT_GENRE } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { changeGenre, filterFilms } from '../../store/action';
+import { changeGenre } from '../../store/action';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
@@ -20,13 +20,11 @@ export default function Film({films}: FilmProps): JSX.Element {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
-    dispatch(filterFilms(DEFAULT_GENRE));
   });
-  const { allFilms } = useAppSelector((state) => state);
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
-  const favoriteFilmsCount = allFilms.filter((movie) => movie.isFavorite).length;
   const { similarFilms } = useAppSelector((state) => state);
+  const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
 
   if(film === undefined) {
     return <NotFound />;

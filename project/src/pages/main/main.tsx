@@ -4,7 +4,7 @@ import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
 import ShowMoreButton from '../../components/show-more-button.tsx/show-more-button';
-import { DEFAULT_FILMS_COUNT } from '../../const';
+import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { FilmType } from '../../types/film-type';
 
@@ -16,9 +16,15 @@ type MainProps = {
 export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
-  const { genresList, allFilms } = useAppSelector((state) => state);
-  const favoriteFilmsCount = allFilms.filter((film) => film.isFavorite).length;
-  const renderedFilms = films.slice(0, filmsCount);
+  const { genresList, genre } = useAppSelector((state) => state);
+  let filteredFilms = [];
+  if(genre === DEFAULT_GENRE) {
+    filteredFilms = films;
+  } else {
+    filteredFilms = films.filter((film) => film.genre === genre);
+  }
+  const favoriteFilms = films.filter((film) => film.isFavorite);
+  const renderedFilms = filteredFilms.slice(0, filmsCount);
 
   return (
     <>
@@ -56,7 +62,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{favoriteFilmsCount}</span>
+                  <span className="film-card__count">{favoriteFilms.length}</span>
                 </button>
               </div>
             </div>

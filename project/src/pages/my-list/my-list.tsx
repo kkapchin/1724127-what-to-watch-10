@@ -8,8 +8,9 @@ type MyListProps = {
   films: FilmType[]
 }
 
-export default function MyList({films}: MyListProps): JSX.Element {
+export default function MyList({ films }: MyListProps): JSX.Element {
   const favoriteFilms = films.filter((film) => film.isFavorite);
+
   return (
     <div className="user-page">
 
