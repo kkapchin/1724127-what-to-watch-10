@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import './not-found.css';
 
 export default function NotFound(): JSX.Element {
   return (

@@ -3,15 +3,15 @@ import GenresItem from './genres-item';
 
 type GenresListProps = {
   setFilmsCount: (filmsCount: number) => void,
-  genreList: string[],
+  genresList: string[],
 }
 
-export default function GenresList({ setFilmsCount, genreList }: GenresListProps) {
+export default function GenresList({ setFilmsCount, genresList }: GenresListProps) {
   const activeGenre = useAppSelector((state) => state.genre);
 
   return (
     <ul className="catalog__genres-list">
-      {genreList.map((genre) => (
+      {genresList.map((genre) => (
         <GenresItem
           key={genre}
           genre={genre}

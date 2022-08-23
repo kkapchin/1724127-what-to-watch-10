@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import { DEFAULT_GENRE } from '../../const';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { changeGenre } from '../../store/action';
 import { FilmType } from '../../types/film-type';
@@ -17,7 +17,7 @@ type FilmProps = {
 
 export default function Film({films}: FilmProps): JSX.Element {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
   });

@@ -76,7 +76,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
 
           <GenresList
             setFilmsCount={setFilmsCount}
-            genreList={genresList}
+            genresList={genresList}
           />
 
           {films && (<FilmsList films={renderedFilms} />)}

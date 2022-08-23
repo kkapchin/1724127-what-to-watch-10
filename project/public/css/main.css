@@ -1440,3 +1440,25 @@ main {
   color: #fff;
   background: #fd612ead;
   border-radius: 15px; }
+
+.not-found {
+  text-align: center;
+  line-height: 1.5; }
+
+.not-found__btn {
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  padding: 24px 40px;
+  background: none;
+  border: 1px solid rgba(217, 205, 141, 0.41);
+  border-radius: 8px;
+  -webkit-transition: border-color 0.2s;
+  transition: border-color 0.2s;
+  font-size: 30px;
+  line-height: 44px;
+  text-align: center;
+  color: #D9CD8D;
+  cursor: pointer; }
+  .not-found__btn:hover, .not-found__btn:focus {
+    border: 1px solid rgba(217, 205, 141, 0.7); }
