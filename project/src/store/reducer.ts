@@ -1,18 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_GENRE } from '../const';
-import { films } from '../mocks/films';
 import { promo } from '../mocks/promo-film';
 import { StateType } from '../types/state-type';
-import { changeGenre, filterFilms } from './action';
-
-const SIMILAR_FILMS_COUNT = -4;
+import { changeGenre, setFilms, setIsDataLoading } from './action';
 
 const initialState: StateType = {
   genre: DEFAULT_GENRE,
-  films: films,
-  favoriteFilms: films.filter((film) => film.isFavorite),
+  films: [],
   promo: promo,
-  similarFilms: films.slice(SIMILAR_FILMS_COUNT),
+  similarFilms: [],
+  isDataLoading: false,
+  genresList: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -20,12 +18,21 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
     })
-    .addCase(filterFilms, (state, action) => {
-      const genre = action.payload;
-      if(genre === DEFAULT_GENRE) {
-        state.films = initialState.films;
-      } else {
-        state.films = films.filter((film) => film.genre === genre);
+    .addCase(setFilms, (state, action) => {
+      state.films = action.payload;
+
+      let genresList = [DEFAULT_GENRE];
+      genresList.push(
+        ...[...new Set(state.films.map((film) => film.genre))]
+          .sort((a, b): number => a < b ? -1 : 1)
+          .map((genre) => genre)
+      );
+      if (genresList.length > 10) {
+        genresList = genresList.slice(0, 10);
       }
+      state.genresList = genresList;
+    })
+    .addCase(setIsDataLoading, (state, action) => {
+      state.isDataLoading = action.payload;
     });
 });

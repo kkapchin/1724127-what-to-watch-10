@@ -8,12 +8,18 @@ import MyList from '../../pages/my-list/my-list';
 import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
+import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
-  const films = useAppSelector((state) => state.films);
-  const promo = useAppSelector((state) => state.promo);
+  const { isDataLoading, films, promo } = useAppSelector((state) => state);
+
+  if(isDataLoading) {
+    return (
+      <Loader />
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -21,10 +27,7 @@ export default function App(): JSX.Element {
         <Route
           path={AppRoute.Main}
           element={
-            <Main
-              promo={promo}
-              films={films}
-            />
+            <Main films={films} promo={promo} />
           }
         />
         <Route
@@ -51,13 +54,13 @@ export default function App(): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <AddReview films={films} />
+              <AddReview />
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Player}
-          element={<Player films={films} />}
+          element={<Player />}
         />
         <Route
           path={AppRoute.NotFound}

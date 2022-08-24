@@ -1,4 +1,4 @@
-import Logo from './logo';
+import Logo from '../logo/logo';
 import UserBlock from './user-block';
 
 type HeaderProps = {

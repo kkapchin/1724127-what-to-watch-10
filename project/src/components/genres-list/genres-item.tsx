@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { DEFAULT_FILMS_COUNT } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
-import { changeGenre, filterFilms } from '../../store/action';
+import { changeGenre } from '../../store/action';
 
 type GenresItemProps = {
   genre: string,
@@ -14,7 +14,6 @@ export default function GenresItem({ genre, activeGenre, setFilmsCount }: Genres
 
   const handleItemClick = () => {
     dispatch(changeGenre(genre));
-    dispatch(filterFilms(genre));
     setFilmsCount(DEFAULT_FILMS_COUNT);
   };
 

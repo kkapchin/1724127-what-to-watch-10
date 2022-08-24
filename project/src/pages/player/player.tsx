@@ -1,10 +1,10 @@
-import { FilmType } from '../../types/film-type';
+//import { FilmType } from '../../types/film-type';
 
-type PlayerProps = {
+/* type PlayerProps = {
   films: FilmType[]
-}
+} */
 
-export default function Player({films}: PlayerProps): JSX.Element {
+export default function Player(): JSX.Element {
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>

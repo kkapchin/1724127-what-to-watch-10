@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
 import ShowMoreButton from '../../components/show-more-button.tsx/show-more-button';
-import { DEFAULT_FILMS_COUNT } from '../../const';
+import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { FilmType } from '../../types/film-type';
 
@@ -16,8 +16,15 @@ type MainProps = {
 export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
-  const renderedFilms = films.slice(0, filmsCount);
+  const { genresList, genre } = useAppSelector((state) => state);
+  let filteredFilms = [];
+  if(genre === DEFAULT_GENRE) {
+    filteredFilms = films;
+  } else {
+    filteredFilms = films.filter((film) => film.genre === genre);
+  }
+  const favoriteFilms = films.filter((film) => film.isFavorite);
+  const renderedFilms = filteredFilms.slice(0, filmsCount);
 
   return (
     <>
@@ -67,11 +74,19 @@ export default function Main({promo, films}: MainProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList setFilmsCount={setFilmsCount} />
+          <GenresList
+            setFilmsCount={setFilmsCount}
+            genresList={genresList}
+          />
 
-          {films && <FilmList films={renderedFilms} />}
+          {films && (<FilmsList films={renderedFilms} />)}
 
-          {filmsCount < films.length && <ShowMoreButton setFilmsCount={setFilmsCount} filmsCount={filmsCount} />}
+          {filmsCount < filteredFilms.length && (
+            <ShowMoreButton
+              setFilmsCount={setFilmsCount}
+              filmsCount={filmsCount}
+            />
+          )}
         </section>
 
         <Footer />

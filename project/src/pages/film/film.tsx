@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Tabs from '../../components/tabs/tabs';
 import { DEFAULT_GENRE } from '../../const';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { changeGenre, filterFilms } from '../../store/action';
+import { changeGenre } from '../../store/action';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
@@ -17,15 +17,14 @@ type FilmProps = {
 
 export default function Film({films}: FilmProps): JSX.Element {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
-    dispatch(filterFilms(DEFAULT_GENRE));
   });
   const { id } = useParams();
   const film = films.filter((movie) => movie.id === Number(id))[0];
-  const favoriteFilms = useAppSelector((state) => state.favoriteFilms);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const { similarFilms } = useAppSelector((state) => state);
+  const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
 
   if(film === undefined) {
     return <NotFound />;
@@ -71,7 +70,7 @@ export default function Film({films}: FilmProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{favoriteFilms.length}</span>
+                  <span className="film-card__count">{favoriteFilmsCount}</span>
                 </button>
                 <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
               </div>
@@ -94,7 +93,7 @@ export default function Film({films}: FilmProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms} />
+          <FilmsList films={similarFilms} />
         </section>
 
         <Footer />
