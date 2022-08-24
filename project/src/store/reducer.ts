@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, DEFAULT_GENRE } from '../const';
+import { AuthorizationStatus, BLANK_USER_DATA, DEFAULT_GENRE } from '../const';
 import { promo } from '../mocks/promo-film';
 import { StateType } from '../types/state-type';
-import { changeGenre, setAuthorizationStatus, setFilms, setIsDataLoading } from './action';
+import { changeGenre, setAuthorizationStatus, setFilms, setIsDataLoading, setUserData } from './action';
 
 const initialState: StateType = {
   genre: DEFAULT_GENRE,
@@ -12,6 +12,7 @@ const initialState: StateType = {
   isDataLoading: false,
   genresList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
+  userData: BLANK_USER_DATA,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -38,5 +39,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
     });
 });
