@@ -1,15 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance as AxiosInstanceType } from 'axios';
 import { APIRoute, AuthorizationStatus } from '../const';
+import { saveToken } from '../services/token';
 import { AppDispatchType } from '../types/app-dispatch-type';
+import { AuthDataType } from '../types/auth-data-type';
 import { FilmType } from '../types/film-type';
 import { StateType } from '../types/state-type';
+import { UserDataType } from '../types/user-data-type';
 import { setAuthorizationStatus, setFilms, setIsDataLoading } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
   state: StateType,
-  extra: AxiosInstance
+  extra: AxiosInstanceType
 }>(
   'data/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
@@ -23,7 +26,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
   state: StateType,
-  extra: AxiosInstance
+  extra: AxiosInstanceType
 }>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
@@ -33,5 +36,18 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     } catch {
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
     }
+  },
+);
+
+export const loginAction = createAsyncThunk<void, AuthDataType, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'user/login',
+  async ({email, password}, {dispatch, extra: api}) => {
+    const {data: {token}} = await api.post<UserDataType>(APIRoute.Login, {email, password});
+    saveToken(token);
+    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   },
 );
