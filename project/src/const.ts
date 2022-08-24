@@ -48,4 +48,5 @@ export const DEFAULT_FILMS_COUNT = FILMS_COUNT_PER_STEP;
 
 export enum APIRoute {
   Films = '/films',
+  Login = 'login',
 }

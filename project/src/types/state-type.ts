@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from '../const';
 import { FilmType } from './film-type';
 
 export type StateType = {
@@ -7,4 +8,5 @@ export type StateType = {
   similarFilms: FilmType[],
   isDataLoading: boolean,
   genresList: string[],
+  authorizationStatus: AuthorizationStatus,
 }

@@ -8,6 +8,7 @@ export default function SignIn(): JSX.Element {
       <Header
         isTitle
         title={<Title isSignIn />}
+        isSignIn
       />
 
       <div className="sign-in user-page__content">
