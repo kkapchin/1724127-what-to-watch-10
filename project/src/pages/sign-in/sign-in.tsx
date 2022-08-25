@@ -46,7 +46,6 @@ export default function SignIn(): JSX.Element {
 
       <div className="sign-in user-page__content">
         <form
-          action=""
           className="sign-in__form"
           onSubmit={handleSubmit}
         >

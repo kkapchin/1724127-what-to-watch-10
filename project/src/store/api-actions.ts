@@ -33,13 +33,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       const { data } = await api.get<UserDataType>(APIRoute.Login);
       saveToken(data.token);
-      dispatch(setUserData({
-        avatarUrl: data.avatarUrl,
-        email: data.email,
-        id: data.id,
-        name: data.name,
-        token: '',
-      }));
+      dispatch(setUserData(data));
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
     } catch {
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
@@ -56,13 +50,7 @@ export const loginAction = createAsyncThunk<void, AuthDataType, {
   async ({email, password}, {dispatch, extra: api}) => {
     const { data } = await api.post<UserDataType>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    dispatch(setUserData({
-      avatarUrl: data.avatarUrl,
-      email: data.email,
-      id: data.id,
-      name: data.name,
-      token: '',
-    }));
+    dispatch(setUserData(data));
     dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   },
 );

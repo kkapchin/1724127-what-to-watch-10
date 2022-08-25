@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
@@ -9,46 +10,48 @@ export default function UserBlock(): JSX.Element {
   const { authorizationStatus, userData } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  if(authorizationStatus !== AuthorizationStatus.Auth) {
-    return (
-      <div className="user-block">
-        <Link
-          to={AppRoute.SignIn}
-          className="user-block__link"
-        >
-          Sign in
-        </Link>
-      </div>
-    );
-  }
-
   return (
     <ul className="user-block">
-      <li className="user-block__item">
-        <div className="user-block__avatar">
-          <img
-            onClick={() => {
-              dispatch(redirectToRoute(AppRoute.MyList));
-            }}
-            src={userData.avatarUrl}
-            alt="User avatar"
-            width="63"
-            height="63"
-          />
-        </div>
-      </li>
-      <li className="user-block__item">
-        <Link
-          to={AppRoute.Main}
-          className="user-block__link"
-          onClick={(evt) => {
-            evt.preventDefault();
-            dispatch(logoutAction());
-          }}
-        >
-          Sign out
-        </Link>
-      </li>
+      {authorizationStatus !== AuthorizationStatus.Auth
+        ? (
+          <li className="user-block__item">
+            <Link
+              to={AppRoute.SignIn}
+              className="user-block__link"
+            >
+                Sign in
+            </Link>
+          </li>
+        )
+        : (
+          <Fragment>
+            <li className="user-block__item">
+              <div className="user-block__avatar">
+                <img
+                  onClick={() => {
+                    dispatch(redirectToRoute(AppRoute.MyList));
+                  }}
+                  src={userData.avatarUrl}
+                  alt="User avatar"
+                  width="63"
+                  height="63"
+                />
+              </div>
+            </li>
+            <li className="user-block__item">
+              <Link
+                to={AppRoute.Main}
+                className="user-block__link"
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  dispatch(logoutAction());
+                }}
+              >
+                Sign out
+              </Link>
+            </li>
+          </Fragment>
+        )}
     </ul>
   );
 }
