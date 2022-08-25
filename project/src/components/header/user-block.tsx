@@ -31,7 +31,7 @@ export default function UserBlock(): JSX.Element {
                   onClick={() => {
                     dispatch(redirectToRoute(AppRoute.MyList));
                   }}
-                  src={userData.avatarUrl}
+                  src={userData?.avatarUrl}
                   alt="User avatar"
                   width="63"
                   height="63"

@@ -10,5 +10,5 @@ export type StateType = {
   isDataLoading: boolean,
   genresList: string[],
   authorizationStatus: AuthorizationStatus,
-  userData: UserDataType,
+  userData: UserDataType | null,
 }

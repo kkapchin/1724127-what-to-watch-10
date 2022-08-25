@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, BLANK_USER_DATA, DEFAULT_GENRE } from '../const';
+import { AuthorizationStatus, DEFAULT_GENRE } from '../const';
 import { promo } from '../mocks/promo-film';
 import { StateType } from '../types/state-type';
 import { changeGenre, setAuthorizationStatus, setFilms, setIsDataLoading, setUserData } from './action';
@@ -12,7 +12,7 @@ const initialState: StateType = {
   isDataLoading: false,
   genresList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: BLANK_USER_DATA,
+  userData: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
