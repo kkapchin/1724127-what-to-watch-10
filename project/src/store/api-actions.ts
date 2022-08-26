@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance as AxiosInstanceType } from 'axios';
-import { APIRoute, AuthorizationStatus, BLANK_USER_DATA } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus, BLANK_USER_DATA } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AppDispatchType } from '../types/app-dispatch-type';
 import { AuthDataType } from '../types/auth-data-type';
 import { FilmType } from '../types/film-type';
 import { StateType } from '../types/state-type';
 import { UserDataType } from '../types/user-data-type';
-import { setAuthorizationStatus, setFilms, setIsDataLoading, setUserData } from './action';
+import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setUserData } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
@@ -20,6 +20,24 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<FilmType[]>(APIRoute.Films);
     dispatch(setFilms(data));
     dispatch(setIsDataLoading(false));
+  },
+);
+
+export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchFilmById',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      //dispatch(setIsDataLoading(true));
+      const {data} = await api.get<FilmType>(`${APIRoute.Films}/${id}`);
+      //dispatch(setIsDataLoading(false));
+      dispatch(setFilm(data));
+    } catch {
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
   },
 );
 

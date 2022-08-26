@@ -7,6 +7,8 @@ export const changeGenre = createAction<string>('main/changeGenre');
 
 export const setFilms = createAction<FilmType[]>('data/setFilms');
 
+export const setFilm = createAction<FilmType | null>('data/setFilm');
+
 export const setIsDataLoading = createAction<boolean>('data/setIsDataLoading');
 
 export const setAuthorizationStatus = createAction<AuthorizationStatus>('user/setAuthorizationStatus');

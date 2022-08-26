@@ -3,13 +3,14 @@ import { Link, useParams } from 'react-router-dom';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import Tabs from '../../components/tabs/tabs';
 import { DEFAULT_GENRE } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { changeGenre } from '../../store/action';
+import { changeGenre, setFilm } from '../../store/action';
+import { fetchFilmAction } from '../../store/api-actions';
 import { FilmType } from '../../types/film-type';
-import NotFound from '../not-found/not-found';
 
 type FilmProps = {
   films: FilmType[],
@@ -18,16 +19,22 @@ type FilmProps = {
 export default function Film({films}: FilmProps): JSX.Element {
 
   const dispatch = useAppDispatch();
+  const { id } = useParams();
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
-  });
-  const { id } = useParams();
-  const film = films.filter((movie) => movie.id === Number(id))[0];
-  const { similarFilms } = useAppSelector((state) => state);
+    dispatch(fetchFilmAction(id));
+    return () => {
+      dispatch(setFilm(null));
+    };
+  }, [dispatch, id]);
+  const { film, similarFilms } = useAppSelector((state) => state);
+
   const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
 
-  if(film === undefined) {
-    return <NotFound />;
+  if(film === null) {
+    return (
+      <Loader />
+    );
   }
 
   const {
