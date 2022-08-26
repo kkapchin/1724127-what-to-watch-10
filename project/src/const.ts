@@ -18,6 +18,14 @@ export const BLANK_FILM = {
   isFavorite: false,
 };
 
+export const BLANK_USER_DATA = {
+  avatarUrl: '',
+  email: '',
+  id: Number(null),
+  name: '',
+  token: '',
+};
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -48,4 +56,6 @@ export const DEFAULT_FILMS_COUNT = FILMS_COUNT_PER_STEP;
 
 export enum APIRoute {
   Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
 }
