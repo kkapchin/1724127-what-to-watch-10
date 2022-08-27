@@ -10,7 +10,7 @@ import { DEFAULT_GENRE } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { changeGenre, setErrorStatus, setFilm } from '../../store/action';
-import { fetchFilmAction, fetchReviewsAction } from '../../store/api-actions';
+import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
@@ -25,6 +25,7 @@ export default function Film({films}: FilmProps): JSX.Element {
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
     dispatch(fetchFilmAction(id));
+    dispatch(fetchSimilarFilmsAction(id));
     dispatch(fetchReviewsAction(id));
     return () => {
       dispatch(setErrorStatus(null));

@@ -9,7 +9,7 @@ import { NewReviewType } from '../types/new-review-type';
 import { ReviewType } from '../types/review-type';
 import { StateType } from '../types/state-type';
 import { UserDataType } from '../types/user-data-type';
-import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setReviews, setUserData } from './action';
+import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setReviews, setSimilarFilms, setUserData } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
@@ -25,7 +25,19 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<void | JSX.Element, string | undefined, {
+export const fetchSimilarFilmsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchSimilarFilms',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmType[]>(`${APIRoute.Films}/${id}/similar`);
+    dispatch(setSimilarFilms(data));
+  },
+);
+
+export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
   dispatch: AppDispatchType,
   state: StateType,
   extra: AxiosInstanceType
@@ -49,7 +61,7 @@ export const fetchReviewsAction = createAsyncThunk<void, string | undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void | AuthorizationStatus, undefined, {
+export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
   state: StateType,
   extra: AxiosInstanceType
@@ -100,7 +112,7 @@ export const postReviewAction = createAsyncThunk<void, NewReviewType, {
   state: StateType,
   extra: AxiosInstanceType
 }>(
-  'user/login',
+  'comments/addNewComment',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     await api.post<UserDataType>(`${APIRoute.Comments}/${id}`, {comment, rating});
     dispatch(redirectToRoute(`${APIRoute.Films}/${String(id)}`));

@@ -8,6 +8,8 @@ export const changeGenre = createAction<string>('main/changeGenre');
 
 export const setFilms = createAction<FilmType[]>('data/setFilms');
 
+export const setSimilarFilms = createAction<FilmType[]>('data/setSimilarFilms');
+
 export const setFilm = createAction<FilmType | null>('data/setFilm');
 
 export const setReviews = createAction<ReviewType[]>('data/setReviews');

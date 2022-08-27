@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, DEFAULT_GENRE } from '../const';
 import { promo } from '../mocks/promo-film';
 import { StateType } from '../types/state-type';
-import { changeGenre, setAuthorizationStatus, setErrorStatus, setFilm, setFilms, setIsDataLoading, setReviews, setUserData } from './action';
+import { changeGenre, setAuthorizationStatus, setErrorStatus, setFilm, setFilms, setIsDataLoading, setReviews, setSimilarFilms, setUserData } from './action';
 
 const initialState: StateType = {
   genre: DEFAULT_GENRE,
@@ -51,6 +51,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFilm, (state, action) => {
       state.film = action.payload;
+    })
+    .addCase(setSimilarFilms, (state, action) => {
+      state.similarFilms = action
+        .payload
+        .filter((film) => film.id !== state.film?.id)
+        .slice(0, 4);
     })
     .addCase(setReviews, (state, action) => {
       state.reviews = action.payload;
