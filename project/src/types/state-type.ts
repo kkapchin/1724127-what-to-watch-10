@@ -8,7 +8,7 @@ export type StateType = {
   films: FilmType[],
   film: FilmType | null,
   reviews: ReviewType[],
-  promo: FilmType,
+  promo: FilmType | null,
   similarFilms: FilmType[],
   isDataLoading: boolean,
   errorStatus: number | null,

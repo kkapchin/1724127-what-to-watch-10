@@ -6,7 +6,7 @@ import { redirectToRoute } from '../../store/action';
 
 type ButtonsProps = {
   filmsCount: number,
-  isInList: boolean,
+  isInList: boolean | undefined,
   id?: string,
 }
 
@@ -14,9 +14,6 @@ export default function Buttons({filmsCount, id, isInList}: ButtonsProps): JSX.E
 
   const dispatch = useAppDispatch();
   const { authorizationStatus } = useAppSelector((state) => state);
-
-  //const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
-  //const {id} = film;
 
   return (
     <div className="film-card__buttons">

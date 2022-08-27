@@ -9,7 +9,7 @@ import { NewReviewType } from '../types/new-review-type';
 import { ReviewType } from '../types/review-type';
 import { StateType } from '../types/state-type';
 import { UserDataType } from '../types/user-data-type';
-import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setReviews, setSimilarFilms, setUserData } from './action';
+import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setPromo, setReviews, setSimilarFilms, setUserData } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
@@ -21,6 +21,20 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     dispatch(setIsDataLoading(true));
     const {data} = await api.get<FilmType[]>(APIRoute.Films);
     dispatch(setFilms(data));
+    dispatch(setIsDataLoading(false));
+  },
+);
+
+export const fetchPromoAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchPromo',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setIsDataLoading(true));
+    const {data} = await api.get<FilmType>(APIRoute.Promo);
+    dispatch(setPromo(data));
     dispatch(setIsDataLoading(false));
   },
 );

@@ -1,7 +1,6 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import { getToken } from './token';
 import {StatusCodes} from 'http-status-codes';
-import {toast} from 'react-toastify';
 import { store } from '../store';
 import { setErrorStatus } from '../store/action';
 
@@ -14,7 +13,6 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
-const customId = 'custom-id-yes';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -38,9 +36,6 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
-        toast.warn(error.response.data.error, {
-          toastId: customId
-        });
         store.dispatch(setErrorStatus(error.response.status));
       }
 

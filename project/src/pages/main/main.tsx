@@ -11,7 +11,7 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { FilmType } from '../../types/film-type';
 
 type MainProps = {
-  promo: FilmType,
+  promo: FilmType | null,
   films: FilmType[],
 }
 
@@ -34,7 +34,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
       <Fragment>
         <section className="film-card">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
+            <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo?.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -44,20 +44,20 @@ export default function Main({promo, films}: MainProps): JSX.Element {
           <div className="film-card__wrap">
             <div className="film-card__info">
               <div className="film-card__poster">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${promo.name } poster`} width="218" height="327" />
+                <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${promo?.name } poster`} width="218" height="327" />
               </div>
 
               <div className="film-card__desc">
-                <h2 className="film-card__title">{promo.name}</h2>
+                <h2 className="film-card__title">{promo?.name}</h2>
                 <p className="film-card__meta">
-                  <span className="film-card__genre">{promo.genre}</span>
-                  <span className="film-card__year">{promo.released}</span>
+                  <span className="film-card__genre">{promo?.genre}</span>
+                  <span className="film-card__year">{promo?.released}</span>
                 </p>
 
                 <Buttons
                   filmsCount={favoriteFilmsCount}
-                  id={String(promo.id)}
-                  isInList={promo.isFavorite}
+                  id={String(promo?.id)}
+                  isInList={promo?.isFavorite}
                 />
               </div>
             </div>
