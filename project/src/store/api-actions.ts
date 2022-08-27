@@ -5,9 +5,10 @@ import { dropToken, saveToken } from '../services/token';
 import { AppDispatchType } from '../types/app-dispatch-type';
 import { AuthDataType } from '../types/auth-data-type';
 import { FilmType } from '../types/film-type';
+import { ReviewType } from '../types/review-type';
 import { StateType } from '../types/state-type';
 import { UserDataType } from '../types/user-data-type';
-import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setUserData } from './action';
+import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setReviews, setUserData } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
@@ -31,13 +32,23 @@ export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
   'data/fetchFilmById',
   async (id, {dispatch, extra: api}) => {
     try {
-      //dispatch(setIsDataLoading(true));
       const {data} = await api.get<FilmType>(`${APIRoute.Films}/${id}`);
-      //dispatch(setIsDataLoading(false));
       dispatch(setFilm(data));
     } catch {
       dispatch(redirectToRoute(AppRoute.NotFound));
     }
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchReviews',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(`${APIRoute.Comments}/${id}`);
+    dispatch(setReviews(data));
   },
 );
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab } from '../../const';
-import { reviews } from '../../mocks/reviews';
+import { useAppSelector } from '../../hooks/use-app-selector';
 import { FilmType } from '../../types/film-type';
 import Details from './details';
 import Overview from './overview';
@@ -20,6 +20,7 @@ type TabsProps = {
 }
 export default function Tabs({ film }: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
+  const {reviews} = useAppSelector((state) => state);
 
   return (
     <div className="film-card__desc">

@@ -9,7 +9,7 @@ import { DEFAULT_GENRE } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { changeGenre, setFilm } from '../../store/action';
-import { fetchFilmAction } from '../../store/api-actions';
+import { fetchFilmAction, fetchReviewsAction } from '../../store/api-actions';
 import { FilmType } from '../../types/film-type';
 
 type FilmProps = {
@@ -23,6 +23,7 @@ export default function Film({films}: FilmProps): JSX.Element {
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
     dispatch(fetchFilmAction(id));
+    dispatch(fetchReviewsAction(id));
     return () => {
       dispatch(setFilm(null));
     };

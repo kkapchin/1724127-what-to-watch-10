@@ -2,11 +2,12 @@ import { ReviewType } from '../../types/review-type';
 import Review from './review';
 
 type ReviewsProps = {
-  reviews: ReviewType[]
+  reviews: ReviewType[],
 }
 
 export default function Reviews({reviews}: ReviewsProps): JSX.Element {
-  const sortedReviews = reviews.sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
+
+  const sortedReviews = reviews.slice().sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)));
   const reviews1 = sortedReviews.filter((comment, index) => index % 2 !== 0);
   const reviews2 = sortedReviews.filter((comment, index) => index % 2 === 0);
   return (
