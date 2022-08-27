@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Buttons from '../../components/buttons/buttons';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -29,7 +30,6 @@ export default function Film({films}: FilmProps): JSX.Element {
     };
   }, [dispatch, id]);
   const { film, similarFilms } = useAppSelector((state) => state);
-
   const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
 
   if(film === null) {
@@ -66,22 +66,11 @@ export default function Film({films}: FilmProps): JSX.Element {
                 <span className="film-card__year">{released}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favoriteFilmsCount}</span>
-                </button>
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
-              </div>
+              <Buttons
+                filmsCount={favoriteFilmsCount}
+                id={id}
+                isInList={film.isFavorite}
+              />
             </div>
           </div>
         </div>

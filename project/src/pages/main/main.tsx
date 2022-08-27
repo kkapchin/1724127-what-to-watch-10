@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Buttons from '../../components/buttons/buttons';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
@@ -23,7 +24,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
   } else {
     filteredFilms = films.filter((film) => film.genre === genre);
   }
-  const favoriteFilms = films.filter((film) => film.isFavorite);
+  const favoriteFilmsCount = films.filter((film) => film.isFavorite).length;
   const renderedFilms = filteredFilms.slice(0, filmsCount);
 
   return (
@@ -50,21 +51,11 @@ export default function Main({promo, films}: MainProps): JSX.Element {
                 <span className="film-card__year">{promo.released}</span>
               </p>
 
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favoriteFilms.length}</span>
-                </button>
-              </div>
+              <Buttons
+                filmsCount={favoriteFilmsCount}
+                id={String(promo.id)}
+                isInList={promo.isFavorite}
+              />
             </div>
           </div>
         </div>
