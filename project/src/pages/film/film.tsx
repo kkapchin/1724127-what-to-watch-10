@@ -34,8 +34,9 @@ export default function Film({films}: FilmProps): JSX.Element {
   }, [dispatch, id]);
   const { errorStatus, film, similarFilms } = useAppSelector((state) => state);
   const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
+  const error = errorStatus;
 
-  if(errorStatus) {
+  if(error) {
     return (
       <NotFound />
     );

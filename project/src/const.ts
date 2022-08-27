@@ -54,8 +54,6 @@ export const FILMS_COUNT_PER_STEP = 8;
 
 export const DEFAULT_FILMS_COUNT = FILMS_COUNT_PER_STEP;
 
-export const TIMEOUT_SHOW_ERROR = 6000;
-
 export enum APIRoute {
   Films = '/films',
   Login = '/login',

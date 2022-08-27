@@ -4,8 +4,6 @@ import {StatusCodes} from 'http-status-codes';
 import {toast} from 'react-toastify';
 import { store } from '../store';
 import { setErrorStatus } from '../store/action';
-import { clearErrorAction } from '../store/api-actions';
-import { TIMEOUT_SHOW_ERROR } from '../const';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -45,10 +43,6 @@ export const createAPI = (): AxiosInstance => {
           position: toast.POSITION.BOTTOM_LEFT,
         });
         store.dispatch(setErrorStatus(error.response.status));
-        setTimeout(
-          () => store.dispatch(setErrorStatus(null)),
-          TIMEOUT_SHOW_ERROR,
-        );
       }
 
       throw error;
