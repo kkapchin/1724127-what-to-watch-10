@@ -11,6 +11,7 @@ export type StateType = {
   promo: FilmType,
   similarFilms: FilmType[],
   isDataLoading: boolean,
+  errorStatus: number | null,
   genresList: string[],
   authorizationStatus: AuthorizationStatus,
   userData: UserDataType | null,

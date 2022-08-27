@@ -1,50 +1,56 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import Breadcrumbs from '../../components/header/breadcrumbs';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-//import { FilmType } from '../../types/film-type';
+import { setErrorStatus, setFilm } from '../../store/action';
+import { fetchFilmAction } from '../../store/api-actions';
 import NotFound from '../not-found/not-found';
 
-/* type AddReviewProps = {
-  films: FilmType[]
-} */
-
 export default function AddReview(): JSX.Element {
-  const { id } = useParams();
-  const { films } = useAppSelector((state) => state);
-  const film = films.filter((movie) => movie.id === Number(id))[0];
 
-  if(film === undefined) {
-    return <NotFound />;
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFilmAction(id));
+    return () => {
+      dispatch(setErrorStatus(null));
+      dispatch(setFilm(null));
+    };
+  }, [dispatch, id]);
+  const { errorStatus, film } = useAppSelector((state) => state);
+
+  if(errorStatus) {
+    return (
+      <NotFound />
+    );
   }
 
-  const {
-    backgroundImage,
-    name,
-    posterImage,
-  } = film;
+  return !film
+    ? (<Loader />)
+    : (
+      <section className="film-card film-card--full">
+        <div className="film-card__header">
+          <div className="film-card__bg">
+            <img src={film.backgroundImage} alt={film.name} />
+          </div>
 
-  return (
-    <section className="film-card film-card--full">
-      <div className="film-card__header">
-        <div className="film-card__bg">
-          <img src={backgroundImage} alt={name} />
+          <h1 className="visually-hidden">WTW</h1>
+
+          <Header breadcrumbs={<Breadcrumbs id={film.id} name={film.name} />} />
+
+          <div className="film-card__poster film-card__poster--small">
+            <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
+          </div>
         </div>
 
-        <h1 className="visually-hidden">WTW</h1>
-
-        <Header breadcrumbs={<Breadcrumbs id={film.id} name={name} />} />
-
-        <div className="film-card__poster film-card__poster--small">
-          <img src={posterImage} alt={`${name} poster`} width="218" height="327" />
+        <div className="add-review">
+          <AddReviewForm />
         </div>
-      </div>
 
-      <div className="add-review">
-        <AddReviewForm />
-      </div>
-
-    </section>
-  );
+      </section>
+    );
 }

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Buttons from '../../components/buttons/buttons';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import ShowMoreButton from '../../components/show-more-button.tsx/show-more-button';
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
@@ -17,7 +18,7 @@ type MainProps = {
 export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
-  const { genresList, genre } = useAppSelector((state) => state);
+  const { isDataLoading, genresList, genre } = useAppSelector((state) => state);
   let filteredFilms = [];
   if(genre === DEFAULT_GENRE) {
     filteredFilms = films;
@@ -27,61 +28,63 @@ export default function Main({promo, films}: MainProps): JSX.Element {
   const favoriteFilmsCount = films.filter((film) => film.isFavorite).length;
   const renderedFilms = filteredFilms.slice(0, filmsCount);
 
-  return (
-    <>
-      <section className="film-card">
-        <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
-        </div>
+  return isDataLoading
+    ? (<Loader />)
+    : (
+      <Fragment>
+        <section className="film-card">
+          <div className="film-card__bg">
+            <img src="img/bg-the-grand-budapest-hotel.jpg" alt={promo.name} />
+          </div>
 
-        <h1 className="visually-hidden">WTW</h1>
+          <h1 className="visually-hidden">WTW</h1>
 
-        <Header />
+          <Header />
 
-        <div className="film-card__wrap">
-          <div className="film-card__info">
-            <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${promo.name } poster`} width="218" height="327" />
-            </div>
+          <div className="film-card__wrap">
+            <div className="film-card__info">
+              <div className="film-card__poster">
+                <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${promo.name } poster`} width="218" height="327" />
+              </div>
 
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{promo.name}</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">{promo.genre}</span>
-                <span className="film-card__year">{promo.released}</span>
-              </p>
+              <div className="film-card__desc">
+                <h2 className="film-card__title">{promo.name}</h2>
+                <p className="film-card__meta">
+                  <span className="film-card__genre">{promo.genre}</span>
+                  <span className="film-card__year">{promo.released}</span>
+                </p>
 
-              <Buttons
-                filmsCount={favoriteFilmsCount}
-                id={String(promo.id)}
-                isInList={promo.isFavorite}
-              />
+                <Buttons
+                  filmsCount={favoriteFilmsCount}
+                  id={String(promo.id)}
+                  isInList={promo.isFavorite}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <GenresList
-            setFilmsCount={setFilmsCount}
-            genresList={genresList}
-          />
-
-          {films && (<FilmsList films={renderedFilms} />)}
-
-          {filmsCount < filteredFilms.length && (
-            <ShowMoreButton
-              setFilmsCount={setFilmsCount}
-              filmsCount={filmsCount}
-            />
-          )}
         </section>
 
-        <Footer />
-      </div>
-    </>
-  );
+        <div className="page-content">
+          <section className="catalog">
+            <h2 className="catalog__title visually-hidden">Catalog</h2>
+
+            <GenresList
+              setFilmsCount={setFilmsCount}
+              genresList={genresList}
+            />
+
+            {films && (<FilmsList films={renderedFilms} />)}
+
+            {filmsCount < filteredFilms.length && (
+              <ShowMoreButton
+                setFilmsCount={setFilmsCount}
+                filmsCount={filmsCount}
+              />
+            )}
+          </section>
+
+          <Footer />
+        </div>
+      </Fragment>
+    );
 }

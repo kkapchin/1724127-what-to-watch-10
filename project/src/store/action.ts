@@ -14,8 +14,10 @@ export const setReviews = createAction<ReviewType[]>('data/setReviews');
 
 export const setIsDataLoading = createAction<boolean>('data/setIsDataLoading');
 
+export const setErrorStatus = createAction<number | null>('data/setErrorStatus');
+
 export const setAuthorizationStatus = createAction<AuthorizationStatus>('user/setAuthorizationStatus');
 
 export const setUserData = createAction<UserDataType>('user/setUserData');
 
-export const redirectToRoute = createAction<AppRoute>('what-to-watch/redirectToRoute');
+export const redirectToRoute = createAction<AppRoute | string>('what-to-watch/redirectToRoute');

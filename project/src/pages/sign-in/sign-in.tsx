@@ -1,11 +1,11 @@
 import { FormEvent, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Title from '../../components/header/title';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
+import { browserHistory } from '../../services/browser-history';
 import { loginAction } from '../../store/api-actions';
 import { AuthDataType } from '../../types/auth-data-type';
 
@@ -18,7 +18,7 @@ export default function SignIn(): JSX.Element {
   const { authorizationStatus } = useAppSelector((state) => state);
 
   if(authorizationStatus === AuthorizationStatus.Auth) {
-    return <Navigate to={AppRoute.Main} />;
+    browserHistory.back();
   }
 
   const onSubmit = (authData: AuthDataType) => {
