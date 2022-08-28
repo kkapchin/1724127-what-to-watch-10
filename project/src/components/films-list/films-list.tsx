@@ -8,6 +8,7 @@ type FilmListProps = {
 }
 
 export default function FilmsList({ films }: FilmListProps): JSX.Element {
+
   const [activeCard, setActiveCard] = useState(BLANK_FILM);
 
   return (

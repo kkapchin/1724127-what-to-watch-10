@@ -7,14 +7,15 @@ import { setErrorStatus } from '../store/action';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
+const CUSTOM_ID = 'custom-id-yes';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: true,
   [StatusCodes.NOT_FOUND]: true
 };
+
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
-const customId = 'custom-id-yes';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -39,7 +40,7 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError) => {
       if (error.response && shouldDisplayError(error.response)) {
         toast.info(error.response.data.error, {
-          toastId: customId,
+          toastId: CUSTOM_ID,
           position: toast.POSITION.BOTTOM_LEFT,
         });
         store.dispatch(setErrorStatus(error.response.status));

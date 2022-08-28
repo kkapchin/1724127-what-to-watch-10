@@ -7,6 +7,7 @@ type GenresListProps = {
 }
 
 export default function GenresList({ setFilmsCount, genresList }: GenresListProps) {
+
   const activeGenre = useAppSelector((state) => state.genre);
 
   return (

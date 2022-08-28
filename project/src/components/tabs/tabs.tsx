@@ -19,6 +19,7 @@ type TabsProps = {
   film: FilmType,
 }
 export default function Tabs({ film }: TabsProps): JSX.Element {
+
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
   const {reviews} = useAppSelector((state) => state);
 

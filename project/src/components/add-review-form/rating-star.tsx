@@ -21,7 +21,8 @@ export default function RatingStar({value, setRating, rating}: RatingStarProps):
         onClick={() => setRating(value)}
         className="rating__label"
         htmlFor={`star-${value}`}
-      >Rating {value}
+      >
+        Rating {value}
       </label>
     </Fragment>
   );

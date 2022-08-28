@@ -6,6 +6,7 @@ type OverviewProps = {
 }
 
 export default function Overview({film}: OverviewProps): JSX.Element {
+
   const {
     rating,
     scoresCount,

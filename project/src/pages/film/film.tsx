@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Buttons from '../../components/buttons/buttons';
+import FilmButtons from '../../components/film-buttons/film-buttons';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -22,6 +22,9 @@ export default function Film({films}: FilmProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  const { errorStatus, film, similarFilms } = useAppSelector((state) => state);
+  const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
+
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
     dispatch(fetchFilmAction(id));
@@ -32,11 +35,8 @@ export default function Film({films}: FilmProps): JSX.Element {
       dispatch(setFilm(null));
     };
   }, [dispatch, id]);
-  const { errorStatus, film, similarFilms } = useAppSelector((state) => state);
-  const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
-  const error = errorStatus;
 
-  if(error) {
+  if(errorStatus) {
     return (
       <NotFound />
     );
@@ -64,7 +64,7 @@ export default function Film({films}: FilmProps): JSX.Element {
                   <span className="film-card__year">{film.released}</span>
                 </p>
 
-                <Buttons
+                <FilmButtons
                   filmsCount={favoriteFilmsCount}
                   id={id}
                   isInList={film.isFavorite}
@@ -76,7 +76,12 @@ export default function Film({films}: FilmProps): JSX.Element {
           <div className="film-card__wrap film-card__translate-top">
             <div className="film-card__info">
               <div className="film-card__poster film-card__poster--big">
-                <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
+                <img
+                  src={film.posterImage}
+                  alt={`${film.name} poster`}
+                  width="218"
+                  height="327"
+                />
               </div>
 
               <Tabs film={film} />

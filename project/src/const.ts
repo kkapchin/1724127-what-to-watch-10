@@ -1,3 +1,13 @@
+export const EMAIL_REGEX = /\S+@\S+\.\S+/;
+
+export const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-zA-Z]).{2,16}$/;
+
+export const DEFAULT_GENRE = 'All genres';
+
+export const FILMS_COUNT_PER_STEP = 8;
+
+export const DEFAULT_FILMS_COUNT = FILMS_COUNT_PER_STEP;
+
 export const BLANK_FILM = {
   id: Number(null),
   name: '',
@@ -47,12 +57,6 @@ export enum Tab {
   Details = 'Details',
   Reviews = 'Reviews',
 }
-
-export const DEFAULT_GENRE = 'All genres';
-
-export const FILMS_COUNT_PER_STEP = 8;
-
-export const DEFAULT_FILMS_COUNT = FILMS_COUNT_PER_STEP;
 
 export enum APIRoute {
   Films = '/films',

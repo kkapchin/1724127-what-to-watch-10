@@ -6,6 +6,7 @@ type DetailsProps = {
 }
 
 export default function Details({film}: DetailsProps): JSX.Element {
+
   const {
     genre,
     director,

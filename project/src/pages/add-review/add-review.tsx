@@ -14,6 +14,8 @@ export default function AddReview(): JSX.Element {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const { errorStatus, film } = useAppSelector((state) => state);
+
   useEffect(() => {
     dispatch(fetchFilmAction(id));
     return () => {
@@ -21,7 +23,6 @@ export default function AddReview(): JSX.Element {
       dispatch(setFilm(null));
     };
   }, [dispatch, id]);
-  const { errorStatus, film } = useAppSelector((state) => state);
 
   if(errorStatus) {
     return (
@@ -43,7 +44,12 @@ export default function AddReview(): JSX.Element {
           <Header breadcrumbs={<Breadcrumbs id={film.id} name={film.name} />} />
 
           <div className="film-card__poster film-card__poster--small">
-            <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
+            <img
+              src={film.posterImage}
+              alt={`${film.name} poster`}
+              width="218"
+              height="327"
+            />
           </div>
         </div>
 

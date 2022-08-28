@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Title from '../../components/header/title';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, EMAIL_REGEX, PASSWORD_REGEX } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { browserHistory } from '../../services/browser-history';
@@ -24,14 +24,14 @@ export default function SignIn(): JSX.Element {
     if(!email) {
       return true;
     }
-    return /\S+@\S+\.\S+/.test(email);
+    return EMAIL_REGEX.test(email);
   };
 
   const isValidPassword = () => {
     if(!password) {
       return true;
     }
-    return /^(?=.*\d)(?=.*[a-zA-Z]).{2,16}$/.test(password);
+    return PASSWORD_REGEX.test(password);
   };
 
   const handleEmailChange = ({target}: ChangeEvent<HTMLInputElement>) => {
@@ -107,7 +107,8 @@ export default function SignIn(): JSX.Element {
             <button
               className="sign-in__btn"
               type="submit"
-            >Sign in
+            >
+              Sign in
             </button>
           </div>
         </form>

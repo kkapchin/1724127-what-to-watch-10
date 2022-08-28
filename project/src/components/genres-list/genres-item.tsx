@@ -10,6 +10,7 @@ type GenresItemProps = {
 }
 
 export default function GenresItem({ genre, activeGenre, setFilmsCount }: GenresItemProps): JSX.Element {
+
   const dispatch = useAppDispatch();
 
   const handleItemClick = () => {

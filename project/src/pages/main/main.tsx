@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import Buttons from '../../components/buttons/buttons';
+import FilmButtons from '../../components/film-buttons/film-buttons';
 import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import GenresList from '../../components/genres-list/genres-list';
@@ -19,12 +19,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
   const { isDataLoading, genresList, genre } = useAppSelector((state) => state);
-  let filteredFilms = [];
-  if(genre === DEFAULT_GENRE) {
-    filteredFilms = films;
-  } else {
-    filteredFilms = films.filter((film) => film.genre === genre);
-  }
+  const filteredFilms = genre === DEFAULT_GENRE ? films : films.filter((film) => film.genre === genre);
   const favoriteFilmsCount = films.filter((film) => film.isFavorite).length;
   const renderedFilms = filteredFilms.slice(0, filmsCount);
 
@@ -34,7 +29,10 @@ export default function Main({promo, films}: MainProps): JSX.Element {
       <Fragment>
         <section className="film-card">
           <div className="film-card__bg">
-            <img src={promo?.backgroundImage} alt={promo?.name} />
+            <img
+              src={promo?.backgroundImage}
+              alt={promo?.name}
+            />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -44,7 +42,12 @@ export default function Main({promo, films}: MainProps): JSX.Element {
           <div className="film-card__wrap">
             <div className="film-card__info">
               <div className="film-card__poster">
-                <img src={promo?.posterImage} alt={`${promo?.name } poster`} width="218" height="327" />
+                <img
+                  src={promo?.posterImage}
+                  alt={`${promo?.name } poster`}
+                  width="218"
+                  height="327"
+                />
               </div>
 
               <div className="film-card__desc">
@@ -54,7 +57,7 @@ export default function Main({promo, films}: MainProps): JSX.Element {
                   <span className="film-card__year">{promo?.released}</span>
                 </p>
 
-                <Buttons
+                <FilmButtons
                   filmsCount={favoriteFilmsCount}
                   id={String(promo?.id)}
                   isInList={promo?.isFavorite}

@@ -68,7 +68,8 @@ export default function AddReviewForm(): JSX.Element {
               comment.length > MAX_LENGTH ||
               rating === DEFAULT_RATING
             }
-          >Post
+          >
+            Post
           </button>
         </div>
 

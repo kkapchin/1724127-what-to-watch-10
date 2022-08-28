@@ -9,6 +9,7 @@ type MyListProps = {
 }
 
 export default function MyList({ films }: MyListProps): JSX.Element {
+
   const favoriteFilms = films.filter((film) => film.isFavorite);
 
   return (

@@ -4,15 +4,16 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
 
-type ButtonsProps = {
+type FilmButtonsProps = {
   filmsCount: number,
   isInList: boolean | undefined,
   id?: string,
 }
 
-export default function Buttons({filmsCount, id, isInList}: ButtonsProps): JSX.Element {
+export default function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element {
 
   const dispatch = useAppDispatch();
+
   const { authorizationStatus } = useAppSelector((state) => state);
 
   return (
@@ -30,19 +31,27 @@ export default function Buttons({filmsCount, id, isInList}: ButtonsProps): JSX.E
         className="btn btn--list film-card__button"
         type="button"
       >
-        <svg viewBox="0 0 19 20" width="19" height="20">
-          <use
-            xlinkHref={`${isInList ? '#in-list' : '#add'}`}
-          >
-          </use>
-        </svg>
+        {isInList ? (
+          <svg viewBox="0 0 19 20" width="19" height="20">
+            <use xlinkHref="#in-list"></use>
+          </svg>
+        ) : (
+          <svg viewBox="0 0 19 20" width="19" height="20">
+            <use xlinkHref="#add"></use>
+          </svg>
+        )}
         <span>My list</span>
         {authorizationStatus === AuthorizationStatus.Auth && (
           <span className="film-card__count">{filmsCount}</span>
         )}
       </button>
       {id && authorizationStatus === AuthorizationStatus.Auth && (
-        <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+        <Link
+          to={`/films/${id}/review`}
+          className="btn film-card__button"
+        >
+          Add review
+        </Link>
       )}
     </div>
   );
