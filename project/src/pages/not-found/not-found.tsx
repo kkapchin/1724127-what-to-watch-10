@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { AppRoute } from '../../const';
 
 export default function NotFound(): JSX.Element {
   return (
@@ -14,7 +15,10 @@ export default function NotFound(): JSX.Element {
           <br />
           <small>Page not found</small>
         </h1>
-        <Link className="not-found__btn" to="/">
+        <Link
+          to={AppRoute.Main}
+          className="not-found__btn"
+        >
           Go to main page
         </Link>
       </div>

@@ -5,9 +5,11 @@ import { dropToken, saveToken } from '../services/token';
 import { AppDispatchType } from '../types/app-dispatch-type';
 import { AuthDataType } from '../types/auth-data-type';
 import { FilmType } from '../types/film-type';
+import { NewReviewType } from '../types/new-review-type';
+import { ReviewType } from '../types/review-type';
 import { StateType } from '../types/state-type';
 import { UserDataType } from '../types/user-data-type';
-import { setAuthorizationStatus, setFilms, setIsDataLoading, setUserData } from './action';
+import { redirectToRoute, setAuthorizationStatus, setFilm, setFilms, setIsDataLoading, setPromo, setReviews, setSimilarFilms, setUserData } from './action';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatchType,
@@ -20,6 +22,56 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<FilmType[]>(APIRoute.Films);
     dispatch(setFilms(data));
     dispatch(setIsDataLoading(false));
+  },
+);
+
+export const fetchPromoAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchPromo',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(setIsDataLoading(true));
+    const {data} = await api.get<FilmType>(APIRoute.Promo);
+    dispatch(setPromo(data));
+    dispatch(setIsDataLoading(false));
+  },
+);
+
+export const fetchSimilarFilmsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchSimilarFilms',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmType[]>(`${APIRoute.Films}/${id}/similar`);
+    dispatch(setSimilarFilms(data));
+  },
+);
+
+export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchFilmById',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<FilmType>(`${APIRoute.Films}/${id}`);
+    dispatch(setFilm(data));
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchReviews',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<ReviewType[]>(`${APIRoute.Comments}/${id}`);
+    dispatch(setReviews(data));
   },
 );
 
@@ -66,5 +118,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dispatch(setUserData(BLANK_USER_DATA));
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+  },
+);
+
+export const postReviewAction = createAsyncThunk<void, NewReviewType, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'comments/addNewComment',
+  async ({id, comment, rating}, {dispatch, extra: api}) => {
+    await api.post<UserDataType>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    dispatch(redirectToRoute(`${APIRoute.Films}/${String(id)}`));
   },
 );

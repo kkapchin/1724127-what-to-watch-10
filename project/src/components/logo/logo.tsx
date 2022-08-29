@@ -6,6 +6,7 @@ type LogoProps = {
 }
 
 export default function Logo({ isFooter }: LogoProps): JSX.Element {
+
   const handleClick = () => {
     window.scrollTo(0,0);
   };

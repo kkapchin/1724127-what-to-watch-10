@@ -38,16 +38,22 @@ export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps)
         onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        {isActive
-          ? <VideoPlayer src={previewVideoLink} poster={posterImage} />
-          : <img src={posterImage} alt={name} width="280" height="175" />}
+        {isActive ? (
+          <VideoPlayer
+            src={previewVideoLink}
+            poster={posterImage}
+          />
+        ) : (
+          <img src={posterImage} alt={name} width="280" height="175" />
+        )}
       </div>
       <h3 className="small-film-card__title">
         <Link
           to={`/films/${id}`}
           className="small-film-card__link"
           onClick={scrollUp}
-        >{name}
+        >
+          {name}
         </Link>
       </h3>
     </article>

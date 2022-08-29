@@ -10,18 +10,11 @@ import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
 import { browserHistory } from '../../services/browser-history';
 import HistoryRouter from '../history-router/history-router';
-import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
-  const { isDataLoading, films, promo } = useAppSelector((state) => state);
-
-  if(isDataLoading) {
-    return (
-      <Loader />
-    );
-  }
+  const { films, promo } = useAppSelector((state) => state);
 
   return (
     <HistoryRouter history={browserHistory}>

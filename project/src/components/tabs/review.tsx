@@ -20,6 +20,7 @@ type ReviewProps = {
 }
 
 export default function Review({review}: ReviewProps): JSX.Element {
+
   const {
     rating,
     comment,
