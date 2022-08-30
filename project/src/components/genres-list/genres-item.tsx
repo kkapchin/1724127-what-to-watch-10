@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { DEFAULT_FILMS_COUNT } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
-import { changeGenre } from '../../store/action';
+import { changeGenre } from '../../store/film-data/film-data';
 
 type GenresItemProps = {
   genre: string,

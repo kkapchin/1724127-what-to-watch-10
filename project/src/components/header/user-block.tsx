@@ -5,9 +5,12 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
 
 export default function UserBlock(): JSX.Element {
-  const { authorizationStatus, userData } = useAppSelector((state) => state);
+  //const { authorizationStatus, userData } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
   const dispatch = useAppDispatch();
 
   return (

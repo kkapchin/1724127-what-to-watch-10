@@ -3,6 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type FilmButtonsProps = {
   filmsCount: number,
@@ -14,7 +15,7 @@ export default function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps
 
   const dispatch = useAppDispatch();
 
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <div className="film-card__buttons">

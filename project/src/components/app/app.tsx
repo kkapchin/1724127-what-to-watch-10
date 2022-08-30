@@ -9,12 +9,14 @@ import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
 import { browserHistory } from '../../services/browser-history';
+import { getFilms, getPromo } from '../../store/film-data/selectors';
 import HistoryRouter from '../history-router/history-router';
 import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
-  const { films, promo } = useAppSelector((state) => state);
+  const films = useAppSelector(getFilms);
+  const promo = useAppSelector(getPromo);
 
   return (
     <HistoryRouter history={browserHistory}>

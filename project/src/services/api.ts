@@ -2,8 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} fro
 import { getToken } from './token';
 import {StatusCodes} from 'http-status-codes';
 import {toast} from 'react-toastify';
-import { store } from '../store';
-import { setErrorStatus } from '../store/action';
+import { setErrorStatus } from '../store/film-data/film-data';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -43,7 +42,8 @@ export const createAPI = (): AxiosInstance => {
           toastId: CUSTOM_ID,
           position: toast.POSITION.BOTTOM_LEFT,
         });
-        store.dispatch(setErrorStatus(error.response.status));
+        //store.dispatch(setErrorStatus(error.response.status));
+        setErrorStatus(error.response.status);
       }
 
       throw error;
