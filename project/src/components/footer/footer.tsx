@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import Logo from '../logo/logo';
 
-export default function Footer(): JSX.Element {
+function Footer(): JSX.Element {
   return (
     <footer className="page-footer">
       <Logo isFooter />
@@ -11,3 +12,5 @@ export default function Footer(): JSX.Element {
     </footer>
   );
 }
+
+export default memo(Footer);

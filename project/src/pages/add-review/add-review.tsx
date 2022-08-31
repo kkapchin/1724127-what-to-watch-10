@@ -6,15 +6,17 @@ import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { setErrorStatus, setFilm } from '../../store/action';
 import { fetchFilmAction } from '../../store/api-actions';
+import { setErrorStatus, setFilm } from '../../store/film-data/film-data';
+import { selectErrorStatus, selectFilm } from '../../store/film-data/selectors';
 import NotFound from '../not-found/not-found';
 
 export default function AddReview(): JSX.Element {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { errorStatus, film } = useAppSelector((state) => state);
+  const errorStatus = useAppSelector(selectErrorStatus);
+  const film = useAppSelector(selectFilm);
 
   useEffect(() => {
     dispatch(fetchFilmAction(id));

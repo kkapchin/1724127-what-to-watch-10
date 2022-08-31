@@ -1,27 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AppRoute, AuthorizationStatus } from '../const';
-import { FilmType } from '../types/film-type';
-import { ReviewType } from '../types/review-type';
-import { UserDataType } from '../types/user-data-type';
-
-export const changeGenre = createAction<string>('main/changeGenre');
-
-export const setFilms = createAction<FilmType[]>('data/setFilms');
-
-export const setPromo = createAction<FilmType | null>('data/setPromo');
-
-export const setSimilarFilms = createAction<FilmType[]>('data/setSimilarFilms');
-
-export const setFilm = createAction<FilmType | null>('data/setFilm');
-
-export const setReviews = createAction<ReviewType[]>('data/setReviews');
-
-export const setIsDataLoading = createAction<boolean>('data/setIsDataLoading');
-
-export const setErrorStatus = createAction<number | null>('data/setErrorStatus');
-
-export const setAuthorizationStatus = createAction<AuthorizationStatus>('user/setAuthorizationStatus');
-
-export const setUserData = createAction<UserDataType>('user/setUserData');
+import { AppRoute } from '../const';
 
 export const redirectToRoute = createAction<AppRoute | string>('what-to-watch/redirectToRoute');

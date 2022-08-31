@@ -1,9 +1,19 @@
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, NameSpace } from '../const';
 import { FilmType } from './film-type';
 import { ReviewType } from './review-type';
 import { UserDataType } from './user-data-type';
 
 export type StateType = {
+  [NameSpace.Data]: FilmDataType,
+  [NameSpace.User]: UserProcessType,
+}
+
+export type UserProcessType = {
+  authorizationStatus: AuthorizationStatus,
+  userData: UserDataType | null,
+}
+
+export type FilmDataType = {
   genre: string,
   films: FilmType[],
   film: FilmType | null,
@@ -13,6 +23,4 @@ export type StateType = {
   isDataLoading: boolean,
   errorStatus: number | null,
   genresList: string[],
-  authorizationStatus: AuthorizationStatus,
-  userData: UserDataType | null,
 }

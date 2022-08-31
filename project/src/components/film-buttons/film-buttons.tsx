@@ -1,8 +1,10 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
+import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 
 type FilmButtonsProps = {
   filmsCount: number,
@@ -10,11 +12,11 @@ type FilmButtonsProps = {
   id?: string,
 }
 
-export default function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element {
+function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
   return (
     <div className="film-card__buttons">
@@ -56,3 +58,5 @@ export default function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps
     </div>
   );
 }
+
+export default memo(FilmButtons);

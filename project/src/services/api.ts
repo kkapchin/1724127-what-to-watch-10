@@ -2,8 +2,8 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} fro
 import { getToken } from './token';
 import {StatusCodes} from 'http-status-codes';
 import {toast} from 'react-toastify';
+import { setErrorStatus } from '../store/film-data/film-data';
 import { store } from '../store';
-import { setErrorStatus } from '../store/action';
 
 const BACKEND_URL = 'https://10.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;

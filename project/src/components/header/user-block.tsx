@@ -1,13 +1,15 @@
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
 import { logoutAction } from '../../store/api-actions';
+import { selectAuthorizationStatus, selectUserData } from '../../store/user-process/selectors';
 
-export default function UserBlock(): JSX.Element {
-  const { authorizationStatus, userData } = useAppSelector((state) => state);
+function UserBlock(): JSX.Element {
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const userData = useAppSelector(selectUserData);
   const dispatch = useAppDispatch();
 
   return (
@@ -55,3 +57,5 @@ export default function UserBlock(): JSX.Element {
     </ul>
   );
 }
+
+export default memo(UserBlock);
