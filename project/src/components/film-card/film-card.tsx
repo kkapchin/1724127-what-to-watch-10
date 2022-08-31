@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BLANK_FILM } from '../../const';
 import { FilmType } from '../../types/film-type';
@@ -12,7 +12,7 @@ type FilmCardProps = {
   isActive: boolean,
 }
 
-export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps): JSX.Element {
+function FilmCard({film, setActiveCard, isActive}: FilmCardProps): JSX.Element {
 
   const [timeoutId, setTimeoutId] = useState(Number);
 
@@ -59,3 +59,5 @@ export default function FilmCard({film, setActiveCard, isActive}: FilmCardProps)
     </article>
   );
 }
+
+export default memo(FilmCard);

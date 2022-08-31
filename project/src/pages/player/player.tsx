@@ -1,41 +1,78 @@
-//import { FilmType } from '../../types/film-type';
-
-/* type PlayerProps = {
-  films: FilmType[]
-} */
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Loader from '../../components/loader/loader';
+import PlayerButtons from '../../components/player-buttons/player-buttons';
+import PlayerTimer from '../../components/player-timer/player-timer';
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { useAppSelector } from '../../hooks/use-app-selector';
+import { browserHistory } from '../../services/browser-history';
+import { fetchFilmAction } from '../../store/api-actions';
+import { selectDataLoadingStatus, selectFilm } from '../../store/film-data/selectors';
+import NotFound from '../not-found/not-found';
 
 export default function Player(): JSX.Element {
+
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const isDataLoading = useAppSelector(selectDataLoadingStatus);
+  const film = useAppSelector(selectFilm);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleExitButtonClick = () => {
+    browserHistory.back();
+  };
+
+  const handlePlayerButtonsClick = () => {
+    isPlaying ? videoRef.current?.pause() : videoRef.current?.play();
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleFullscreenClick = () => {
+    videoRef.current?.requestFullscreen();
+  };
+
+  useEffect(() => {
+    dispatch(fetchFilmAction(id));
+  }, [dispatch, id]);
+
+  if(isDataLoading) {
+    return <Loader />;
+  }
+
+  if(film === null) {
+    return <NotFound />;
+  }
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video
+        ref={videoRef}
+        src={film.videoLink}
+        className="player__video"
+        poster={film.backgroundImage}
+      >
+      </video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button
+        onClick={handleExitButtonClick}
+        type="button"
+        className="player__exit"
+      >
+        Exit
+      </button>
 
       <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
-          </div>
-          <div className="player__time-value">1:30:29</div>
-        </div>
+        <PlayerTimer
+          isPlaying={isPlaying}
+          filmDuration={film.runTime}
+        />
 
-        <div className="player__controls-row">
-          <button type="button" className="player__play">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
-          <div className="player__name">Transpotting</div>
-
-          <button type="button" className="player__full-screen">
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
-            </svg>
-            <span>Full screen</span>
-          </button>
-        </div>
+        <PlayerButtons
+          isPlaying={isPlaying}
+          handlePlayerButtonsClick={handlePlayerButtonsClick}
+          handleFullscreenClick={handleFullscreenClick}
+        />
       </div>
     </div>
   );
