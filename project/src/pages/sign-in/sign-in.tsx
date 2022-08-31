@@ -7,8 +7,8 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { browserHistory } from '../../services/browser-history';
 import { loginAction } from '../../store/api-actions';
-import { getErrorStatus } from '../../store/film-data/selectors';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { selectErrorStatus } from '../../store/film-data/selectors';
+import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 
 export default function SignIn(): JSX.Element {
 
@@ -16,8 +16,8 @@ export default function SignIn(): JSX.Element {
   const [password, setPassword] = useState(String);
   const dispatch = useAppDispatch();
 
-  const errorStatus = useAppSelector(getErrorStatus);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const errorStatus = useAppSelector(selectErrorStatus);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
   if(authorizationStatus === AuthorizationStatus.Auth) {
     browserHistory.back();

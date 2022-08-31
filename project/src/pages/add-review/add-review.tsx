@@ -8,21 +8,21 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { fetchFilmAction } from '../../store/api-actions';
 import { setErrorStatus, setFilm } from '../../store/film-data/film-data';
-import { getErrorStatus, getFilm } from '../../store/film-data/selectors';
+import { selectErrorStatus, selectFilm } from '../../store/film-data/selectors';
 import NotFound from '../not-found/not-found';
 
 export default function AddReview(): JSX.Element {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const errorStatus = useAppSelector(getErrorStatus);
-  const film = useAppSelector(getFilm);
+  const errorStatus = useAppSelector(selectErrorStatus);
+  const film = useAppSelector(selectFilm);
 
   useEffect(() => {
     dispatch(fetchFilmAction(id));
     return () => {
-      setErrorStatus(null);
-      setFilm(null);
+      dispatch(setErrorStatus(null));
+      dispatch(setFilm(null));
     };
   }, [dispatch, id]);
 

@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
-import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 
 type FilmButtonsProps = {
   filmsCount: number,
@@ -16,7 +16,7 @@ function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element 
 
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
   return (
     <div className="film-card__buttons">

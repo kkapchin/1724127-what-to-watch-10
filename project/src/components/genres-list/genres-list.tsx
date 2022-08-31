@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { getGenre } from '../../store/film-data/selectors';
+import { selectGenre } from '../../store/film-data/selectors';
 import GenresItem from './genres-item';
 
 type GenresListProps = {
@@ -9,7 +9,7 @@ type GenresListProps = {
 
 export default function GenresList({ setFilmsCount, genresList }: GenresListProps) {
 
-  const activeGenre = useAppSelector(getGenre);
+  const activeGenre = useAppSelector(selectGenre);
 
   return (
     <ul className="catalog__genres-list">

@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { changeGenre, setErrorStatus, setFilm } from '../../store/film-data/film-data';
-import { getErrorStatus, getFilm, getSimilarFilms } from '../../store/film-data/selectors';
+import { selectErrorStatus, selectFilm, selectSimilarFilms } from '../../store/film-data/selectors';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
@@ -23,9 +23,9 @@ export default function Film({films}: FilmProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const film = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilarFilms);
-  const errorStatus = useAppSelector(getErrorStatus);
+  const film = useAppSelector(selectFilm);
+  const similarFilms = useAppSelector(selectSimilarFilms);
+  const errorStatus = useAppSelector(selectErrorStatus);
   const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
 
   useEffect(() => {

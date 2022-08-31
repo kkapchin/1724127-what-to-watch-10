@@ -8,7 +8,7 @@ import Loader from '../../components/loader/loader';
 import ShowMoreButton from '../../components/show-more-button.tsx/show-more-button';
 import { DEFAULT_FILMS_COUNT, DEFAULT_GENRE } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { getDataLoadingStatus, getGenre, getGenresList } from '../../store/film-data/selectors';
+import { selectDataLoadingStatus, selectGenre, selectGenresList } from '../../store/film-data/selectors';
 import { FilmType } from '../../types/film-type';
 
 type MainProps = {
@@ -19,9 +19,9 @@ type MainProps = {
 export default function Main({promo, films}: MainProps): JSX.Element {
 
   const [filmsCount, setFilmsCount] = useState(DEFAULT_FILMS_COUNT);
-  const genre = useAppSelector(getGenre);
-  const genresList = useAppSelector(getGenresList);
-  const isDataLoading = useAppSelector(getDataLoadingStatus);
+  const genre = useAppSelector(selectGenre);
+  const genresList = useAppSelector(selectGenresList);
+  const isDataLoading = useAppSelector(selectDataLoadingStatus);
 
   const filteredFilms = genre === DEFAULT_GENRE ? films : films.filter((film) => film.genre === genre);
   const favoriteFilmsCount = films.filter((film) => film.isFavorite).length;

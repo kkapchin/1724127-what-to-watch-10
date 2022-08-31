@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { getReviews } from '../../store/film-data/selectors';
+import { selectReviews } from '../../store/film-data/selectors';
 import { FilmType } from '../../types/film-type';
 import Details from './details';
 import Overview from './overview';
@@ -22,7 +22,7 @@ type TabsProps = {
 export default function Tabs({ film }: TabsProps): JSX.Element {
 
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
-  const reviews = useAppSelector(getReviews);
+  const reviews = useAppSelector(selectReviews);
 
   return (
     <div className="film-card__desc">
