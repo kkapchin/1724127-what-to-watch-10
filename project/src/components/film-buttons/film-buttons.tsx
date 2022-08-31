@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
@@ -11,7 +12,7 @@ type FilmButtonsProps = {
   id?: string,
 }
 
-export default function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element {
+function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
@@ -57,3 +58,5 @@ export default function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps
     </div>
   );
 }
+
+export default memo(FilmButtons);
