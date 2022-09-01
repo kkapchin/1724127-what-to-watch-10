@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { changeGenre, setFilm } from '../../store/film-data/film-data';
-import { selectDataLoadingStatus, selectFilm, selectSimilarFilms } from '../../store/film-data/selectors';
+import { selectFilm, selectIsDataLoaded, selectIsDataLoading, selectSimilarFilms } from '../../store/film-data/selectors';
 import { FilmType } from '../../types/film-type';
 import NotFound from '../not-found/not-found';
 
@@ -25,7 +25,8 @@ export default function Film({films}: FilmProps): JSX.Element | null {
   const { id } = useParams();
   const film = useAppSelector(selectFilm);
   const similarFilms = useAppSelector(selectSimilarFilms);
-  const isDataLoading = useAppSelector(selectDataLoadingStatus);
+  const isDataLoading = useAppSelector(selectIsDataLoading);
+  const isDataLoaded = useAppSelector(selectIsDataLoaded);
   const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
 
   useEffect(() => {
@@ -62,37 +63,41 @@ export default function Film({films}: FilmProps): JSX.Element | null {
 
           <Header />
 
-          <div className="film-card__wrap">
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
-              </p>
+          {!isDataLoading && isDataLoaded && (
+            <div className="film-card__wrap">
+              <div className="film-card__desc">
+                <h2 className="film-card__title">{film.name}</h2>
+                <p className="film-card__meta">
+                  <span className="film-card__genre">{film.genre}</span>
+                  <span className="film-card__year">{film.released}</span>
+                </p>
 
-              <FilmButtons
-                filmsCount={favoriteFilmsCount}
-                id={id}
-                isInList={film.isFavorite}
-              />
+                <FilmButtons
+                  filmsCount={favoriteFilmsCount}
+                  id={id}
+                  isInList={film.isFavorite}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        <div className="film-card__wrap film-card__translate-top">
-          <div className="film-card__info">
-            <div className="film-card__poster film-card__poster--big">
-              <img
-                src={film.posterImage}
-                alt={`${film.name} poster`}
-                width="218"
-                height="327"
-              />
-            </div>
+        {!isDataLoading && isDataLoaded && (
+          <div className="film-card__wrap film-card__translate-top">
+            <div className="film-card__info">
+              <div className="film-card__poster film-card__poster--big">
+                <img
+                  src={film.posterImage}
+                  alt={`${film.name} poster`}
+                  width="218"
+                  height="327"
+                />
+              </div>
 
-            <Tabs film={film} />
+              <Tabs film={film} />
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       <div className="page-content">

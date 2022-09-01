@@ -7,13 +7,13 @@ import Loader from '../../components/loader/loader';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { fetchFavoritesAction } from '../../store/api-actions';
-import { selectDataLoadingStatus, selectFavoriteFilms } from '../../store/film-data/selectors';
+import { selectFavoriteFilms, selectIsDataLoading } from '../../store/film-data/selectors';
 
 export default function MyList(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const favoriteFilms = useAppSelector(selectFavoriteFilms);
-  const isDataLoading = useAppSelector(selectDataLoadingStatus);
+  const isDataLoading = useAppSelector(selectIsDataLoading);
 
   useEffect(() => {
     dispatch(fetchFavoritesAction());

@@ -9,7 +9,7 @@ import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
 import { browserHistory } from '../../services/browser-history';
-import { selectFilms, selectIsNoConnection, selectPromo } from '../../store/film-data/selectors';
+import { selectFilms, selectIsDataLoaded, selectIsDataLoading, selectPromo } from '../../store/film-data/selectors';
 import HistoryRouter from '../history-router/history-router';
 import NoConnection from '../no-connection/no-connection';
 import PrivateRoute from '../private-route/private-route';
@@ -18,9 +18,10 @@ export default function App(): JSX.Element {
 
   const films = useAppSelector(selectFilms);
   const promo = useAppSelector(selectPromo);
-  const isNoConnection = useAppSelector(selectIsNoConnection);
+  const isDataLoading = useAppSelector(selectIsDataLoading);
+  const isDataLoaded = useAppSelector(selectIsDataLoaded);
 
-  if(isNoConnection) {
+  if(isDataLoaded && !isDataLoading) {
     return (
       <NoConnection />
     );

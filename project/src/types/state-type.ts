@@ -22,7 +22,7 @@ export type FilmDataType = {
   promo: FilmType | null,
   similarFilms: FilmType[],
   isDataLoading: boolean,
+  isDataLoaded: boolean,
   errorStatus: number | null,
   genresList: string[],
-  isNoConnection: boolean,
 }

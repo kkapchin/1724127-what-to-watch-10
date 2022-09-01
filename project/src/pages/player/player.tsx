@@ -7,14 +7,14 @@ import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { browserHistory } from '../../services/browser-history';
 import { fetchFilmAction } from '../../store/api-actions';
-import { selectDataLoadingStatus, selectFilm } from '../../store/film-data/selectors';
+import { selectFilm, selectIsDataLoading } from '../../store/film-data/selectors';
 import NotFound from '../not-found/not-found';
 
 export default function Player(): JSX.Element {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const isDataLoading = useAppSelector(selectDataLoadingStatus);
+  const isDataLoading = useAppSelector(selectIsDataLoading);
   const film = useAppSelector(selectFilm);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);

@@ -5,7 +5,7 @@ import {toast} from 'react-toastify';
 import { setErrorStatus } from '../store/film-data/film-data';
 import { store } from '../store';
 
-const BACKEND_URL = 'https://10.react.pages.academy/wtw';
+const BACKEND_URL = 'https://10.react.pages.academy/wt';
 const REQUEST_TIMEOUT = 5000;
 const CUSTOM_ID = 'custom-id-yes';
 

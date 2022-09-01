@@ -12,9 +12,9 @@ const initialState: FilmDataType = {
   promo: null,
   similarFilms: [],
   isDataLoading: false,
+  isDataLoaded: false,
   errorStatus: null,
   genresList: [],
-  isNoConnection: false,
 };
 
 export const filmData = createSlice({
@@ -35,11 +35,10 @@ export const filmData = createSlice({
     builder
       .addCase(fetchFilmsAction.pending, (state) => {
         state.isDataLoading = true;
-        state.isNoConnection = false;
+        state.isDataLoaded = false;
       })
       .addCase(fetchFilmsAction.rejected, (state) => {
         state.isDataLoading = false;
-        state.isNoConnection = true;
       })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.films = action.payload;
@@ -56,6 +55,7 @@ export const filmData = createSlice({
 
         state.genresList = genresList;
         state.isDataLoading = false;
+        state.isDataLoaded = true;
       })
       .addCase(fetchPromoAction.pending, (state) => {
         state.isDataLoading = true;
@@ -78,6 +78,7 @@ export const filmData = createSlice({
       })
       .addCase(fetchFilmAction.pending, (state) => {
         state.isDataLoading = true;
+        state.isDataLoaded = false;
       })
       .addCase(fetchFilmAction.rejected, (state) => {
         state.isDataLoading = false;
@@ -85,9 +86,11 @@ export const filmData = createSlice({
       .addCase(fetchFilmAction.fulfilled, (state, action) => {
         state.film = action.payload;
         state.isDataLoading = false;
+        state.isDataLoaded = true;
       })
       .addCase(fetchFavoritesAction.pending, (state) => {
         state.isDataLoading = true;
+        state.isDataLoaded = false;
       })
       .addCase(fetchFavoritesAction.rejected, (state) => {
         state.isDataLoading = false;
@@ -95,6 +98,7 @@ export const filmData = createSlice({
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
         state.favoriteFilms = action.payload;
         state.isDataLoading = false;
+        state.isDataLoaded = true;
       })
       .addCase(changeFavoriteStatusAction.fulfilled, (state,action) => {
         if(action.payload.isFavorite) {
