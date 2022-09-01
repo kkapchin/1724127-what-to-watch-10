@@ -1,13 +1,13 @@
 import { MouseEventHandler } from 'react';
 
 type PauseButtonProps = {
-  handlePlayerButtonsClick: MouseEventHandler<HTMLButtonElement>,
+  onClick: MouseEventHandler<HTMLButtonElement>,
 }
 
-export default function PauseButton({handlePlayerButtonsClick}: PauseButtonProps): JSX.Element {
+export default function PauseButton({onClick}: PauseButtonProps): JSX.Element {
   return (
     <button
-      onClick={handlePlayerButtonsClick}
+      onClick={onClick}
       type="button"
       className="player__play"
     >

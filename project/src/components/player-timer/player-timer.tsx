@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const SEXAGESIMAL_BASE = 60;
+const MIN_TO_SEC = 60;
 
 type PlayerTimerProps = {
   isPlaying: boolean,
@@ -9,15 +9,15 @@ type PlayerTimerProps = {
 
 export default function PlayerTimer({isPlaying, filmDuration}: PlayerTimerProps): JSX.Element {
 
-  const [timer, setTimer] = useState(filmDuration * SEXAGESIMAL_BASE);
+  const [timer, setTimer] = useState(filmDuration * MIN_TO_SEC);
 
-  const totalDuration = filmDuration * SEXAGESIMAL_BASE;
+  const totalDuration = filmDuration * MIN_TO_SEC;
   const togglerValue = (100 - (timer / totalDuration) * 100);
 
   const showTimeLeft = () => {
-    const secondsCount = Math.floor((timer) % SEXAGESIMAL_BASE);
-    const minutesCount = Math.floor((timer / SEXAGESIMAL_BASE) % SEXAGESIMAL_BASE);
-    const hoursCount = Math.floor((timer / SEXAGESIMAL_BASE / SEXAGESIMAL_BASE) % SEXAGESIMAL_BASE);
+    const secondsCount = Math.floor((timer) % MIN_TO_SEC);
+    const minutesCount = Math.floor((timer / MIN_TO_SEC) % MIN_TO_SEC);
+    const hoursCount = Math.floor((timer / MIN_TO_SEC / MIN_TO_SEC) % MIN_TO_SEC);
 
     const displayedSecondsCount = secondsCount < 10 ? `0${secondsCount}` : secondsCount;
     const displayedMinutesCount = minutesCount < 10 ? `0${minutesCount}` : minutesCount;

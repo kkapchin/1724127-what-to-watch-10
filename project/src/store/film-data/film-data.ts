@@ -100,14 +100,14 @@ export const filmData = createSlice({
         if(action.payload.isFavorite) {
           state.favoriteFilms.push(action.payload);
         } else {
-          const favoriteFilms = state.favoriteFilms;
+          const favoriteFilms = [...state.favoriteFilms];
           const filmIndex = favoriteFilms.findIndex((film) => film.id === action.payload.id);
           state.favoriteFilms = [
             ...favoriteFilms.slice(0, filmIndex),
             ...favoriteFilms.slice(filmIndex + 1),
           ];
         }
-        const films = state.films;
+        const films = [...state.films];
         const filmIndex = films.findIndex((film) => film.id === action.payload.id);
         state.films = [
           ...films.slice(0, filmIndex),

@@ -20,18 +20,18 @@ export default function PlayerButtons(
       {isPlaying
         ? (
           <PauseButton
-            handlePlayerButtonsClick={handlePlayerButtonsClick}
+            onClick={handlePlayerButtonsClick}
           />
         )
         : (
           <PlayButton
-            handlePlayerButtonsClick={handlePlayerButtonsClick}
+            onClick={handlePlayerButtonsClick}
           />
         )}
       <div className="player__name">Transpotting</div>
 
       <FullscreenButton
-        handleFullscreenClick={handleFullscreenClick}
+        onClick={handleFullscreenClick}
       />
     </div>
   );

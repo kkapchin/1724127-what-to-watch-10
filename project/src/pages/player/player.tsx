@@ -24,7 +24,11 @@ export default function Player(): JSX.Element {
   };
 
   const handlePlayerButtonsClick = () => {
-    isPlaying ? videoRef.current?.pause() : videoRef.current?.play();
+    if(isPlaying) {
+      videoRef.current?.pause();
+    } else {
+      videoRef.current?.play();
+    }
     setIsPlaying(!isPlaying);
   };
 

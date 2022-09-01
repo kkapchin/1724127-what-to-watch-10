@@ -1,13 +1,13 @@
 import { MouseEventHandler } from 'react';
 
 type FullscreenButtonProps = {
-  handleFullscreenClick: MouseEventHandler<HTMLButtonElement>,
+  onClick: MouseEventHandler<HTMLButtonElement>,
 }
 
-export default function FullscreenButton({handleFullscreenClick}: FullscreenButtonProps): JSX.Element {
+export default function FullscreenButton({onClick}: FullscreenButtonProps): JSX.Element {
   return (
     <button
-      onClick={handleFullscreenClick}
+      onClick={onClick}
       type="button"
       className="player__full-screen"
     >
