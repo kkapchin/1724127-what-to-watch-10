@@ -24,4 +24,5 @@ export type FilmDataType = {
   isDataLoading: boolean,
   errorStatus: number | null,
   genresList: string[],
+  isNoConnection: boolean,
 }

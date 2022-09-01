@@ -14,6 +14,7 @@ const initialState: FilmDataType = {
   isDataLoading: false,
   errorStatus: null,
   genresList: [],
+  isNoConnection: false,
 };
 
 export const filmData = createSlice({
@@ -34,9 +35,11 @@ export const filmData = createSlice({
     builder
       .addCase(fetchFilmsAction.pending, (state) => {
         state.isDataLoading = true;
+        state.isNoConnection = false;
       })
       .addCase(fetchFilmsAction.rejected, (state) => {
         state.isDataLoading = false;
+        state.isNoConnection = true;
       })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.films = action.payload;
