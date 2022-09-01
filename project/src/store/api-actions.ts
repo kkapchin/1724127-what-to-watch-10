@@ -8,6 +8,7 @@ import { FilmType } from '../types/film-type';
 import { NewReviewType } from '../types/new-review-type';
 import { ReviewType } from '../types/review-type';
 import { StateType } from '../types/state-type';
+import { UpdateFilmType } from '../types/update-film-type';
 import { UserDataType } from '../types/user-data-type';
 import { redirectToRoute } from './action';
 
@@ -118,5 +119,29 @@ export const postReviewAction = createAsyncThunk<void, NewReviewType, {
   async ({id, comment, rating}, {dispatch, extra: api}) => {
     await api.post<UserDataType>(`${APIRoute.Comments}/${id}`, {comment, rating});
     dispatch(redirectToRoute(`${APIRoute.Films}/${String(id)}`));
+  },
+);
+
+export const fetchFavoritesAction = createAsyncThunk<FilmType[], undefined, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/fetchFavorites',
+  async (_arg, {extra: api}) => {
+    const { data } = await api.get(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const changeFavoriteStatusAction = createAsyncThunk<FilmType, UpdateFilmType, {
+  dispatch: AppDispatchType,
+  state: StateType,
+  extra: AxiosInstanceType
+}>(
+  'data/changeFilmFavoriteStatus',
+  async ({id, status}, {extra: api}) => {
+    const { data } = await api.post<FilmType>(`${APIRoute.Favorite}/${id}/${status}`);
+    return data;
   },
 );

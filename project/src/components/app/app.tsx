@@ -9,14 +9,22 @@ import NotFound from '../../pages/not-found/not-found';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign-in/sign-in';
 import { browserHistory } from '../../services/browser-history';
-import { selectFilms, selectPromo } from '../../store/film-data/selectors';
+import { selectFilms, selectIsNoConnection, selectPromo } from '../../store/film-data/selectors';
 import HistoryRouter from '../history-router/history-router';
+import NoConnection from '../no-connection/no-connection';
 import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
   const films = useAppSelector(selectFilms);
   const promo = useAppSelector(selectPromo);
+  const isNoConnection = useAppSelector(selectIsNoConnection);
+
+  if(isNoConnection) {
+    return (
+      <NoConnection />
+    );
+  }
 
   return (
     <HistoryRouter history={browserHistory}>
@@ -35,7 +43,7 @@ export default function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute>
-              <MyList films={films} />
+              <MyList />
             </PrivateRoute>
           }
         />

@@ -1,10 +1,15 @@
 type VideoPlayerProps = {
   src: string,
-  poster: string,
 }
 
-export default function VideoPlayer({src, poster}: VideoPlayerProps): JSX.Element {
+export default function VideoPlayer({src}: VideoPlayerProps): JSX.Element {
   return (
-    <video src={src} poster={poster} autoPlay width="280" height="175" muted />
+    <video
+      src={src}
+      autoPlay
+      width="280"
+      height="175"
+      muted
+    />
   );
 }
