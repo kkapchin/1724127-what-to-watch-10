@@ -20,3 +20,5 @@ export const selectReviews = (state: StateType): ReviewType[] => state[NameSpace
 export const selectErrorStatus = (state: StateType): number | null => state[NameSpace.Data].errorStatus;
 
 export const selectDataLoadingStatus = (state: StateType): boolean => state[NameSpace.Data].isDataLoading;
+
+export const selectFavoriteFilms = (state: StateType): FilmType[] => state[NameSpace.Data].favoriteFilms;

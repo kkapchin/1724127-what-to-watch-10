@@ -35,7 +35,7 @@ export default function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute>
-              <MyList films={films} />
+              <MyList />
             </PrivateRoute>
           }
         />

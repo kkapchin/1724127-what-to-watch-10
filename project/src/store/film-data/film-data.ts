@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DEFAULT_GENRE, NameSpace } from '../../const';
 import { FilmDataType } from '../../types/state-type';
-import { fetchFilmAction, fetchFilmsAction, fetchPromoAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../api-actions';
+import { changeFavoriteStatusAction, fetchFavoritesAction, fetchFilmAction, fetchFilmsAction, fetchPromoAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../api-actions';
 
 const initialState: FilmDataType = {
   genre: DEFAULT_GENRE,
   films: [],
+  favoriteFilms: [],
   film: null,
   reviews: [],
   promo: null,
@@ -81,6 +82,39 @@ export const filmData = createSlice({
       .addCase(fetchFilmAction.fulfilled, (state, action) => {
         state.film = action.payload;
         state.isDataLoading = false;
+      })
+      .addCase(fetchFavoritesAction.pending, (state) => {
+        state.isDataLoading = true;
+      })
+      .addCase(fetchFavoritesAction.rejected, (state) => {
+        state.isDataLoading = false;
+      })
+      .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
+        state.favoriteFilms = action.payload;
+        state.isDataLoading = false;
+      })
+      .addCase(changeFavoriteStatusAction.fulfilled, (state,action) => {
+        if(action.payload.isFavorite) {
+          state.favoriteFilms.push(action.payload);
+        } else {
+          const favoriteFilms = state.favoriteFilms;
+          const filmIndex = favoriteFilms.findIndex((film) => film.id === action.payload.id);
+          state.favoriteFilms = [
+            ...favoriteFilms.slice(0, filmIndex),
+            ...favoriteFilms.slice(filmIndex + 1),
+          ];
+        }
+        const films = state.films;
+        const filmIndex = films.findIndex((film) => film.id === action.payload.id);
+        state.films = [
+          ...films.slice(0, filmIndex),
+          ...[action.payload],
+          ...films.slice(filmIndex + 1),
+        ];
+        state.film = action.payload;
+        if(state.promo?.id === action.payload.id) {
+          state.promo = action.payload;
+        }
       });
   }
 });

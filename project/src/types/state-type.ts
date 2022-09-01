@@ -16,6 +16,7 @@ export type UserProcessType = {
 export type FilmDataType = {
   genre: string,
   films: FilmType[],
+  favoriteFilms: FilmType[],
   film: FilmType | null,
   reviews: ReviewType[],
   promo: FilmType | null,

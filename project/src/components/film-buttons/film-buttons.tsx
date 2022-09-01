@@ -4,7 +4,11 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { redirectToRoute } from '../../store/action';
+import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
+
+const ADD_STATUS = 1;
+const DELETE_STATUS = 0;
 
 type FilmButtonsProps = {
   filmsCount: number,
@@ -16,8 +20,23 @@ function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element 
 
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+
   const handlePlayButtonClick = () => {
     dispatch(redirectToRoute(`player/${id}`));
+  };
+
+  const handleMyListButtonClick = () => {
+    if(authorizationStatus !== AuthorizationStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.SignIn));
+      return;
+    }
+
+    if(!isInList) {
+      dispatch(changeFavoriteStatusAction({id: Number(id), status: ADD_STATUS}));
+      return;
+    }
+
+    dispatch(changeFavoriteStatusAction({id: Number(id), status: DELETE_STATUS}));
   };
 
   return (
@@ -33,9 +52,7 @@ function FilmButtons({filmsCount, id, isInList}: FilmButtonsProps): JSX.Element 
         <span>Play</span>
       </button>
       <button
-        onClick={() => {
-          dispatch(redirectToRoute(AppRoute.MyList));
-        }}
+        onClick={handleMyListButtonClick}
         className="btn btn--list film-card__button"
         type="button"
       >
