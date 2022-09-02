@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
 type BreadcrumbsProps = {
-  id: number,
-  name: string,
+  id: number | undefined,
+  name: string | undefined,
 }
 
 export default function Breadcrumbs({ id, name }: BreadcrumbsProps): JSX.Element {

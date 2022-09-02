@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../../components/loader/loader';
+import NoConnection from '../../components/no-connection/no-connection';
 import PlayerButtons from '../../components/player-buttons/player-buttons';
 import PlayerTimer from '../../components/player-timer/player-timer';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { browserHistory } from '../../services/browser-history';
 import { fetchFilmAction } from '../../store/api-actions';
-import { selectFilm, selectIsDataLoading } from '../../store/film-data/selectors';
+import { selectFilm, selectIsDataLoaded, selectIsDataLoading } from '../../store/film-data/selectors';
 import NotFound from '../not-found/not-found';
 
 export default function Player(): JSX.Element {
@@ -15,6 +16,7 @@ export default function Player(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const isDataLoading = useAppSelector(selectIsDataLoading);
+  const isDataLoaded = useAppSelector(selectIsDataLoaded);
   const film = useAppSelector(selectFilm);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -41,20 +43,26 @@ export default function Player(): JSX.Element {
   }, [dispatch, id]);
 
   if(isDataLoading) {
-    return <Loader />;
+    return (
+      <Loader />
+    );
   }
 
-  if(film === null) {
-    return <NotFound />;
+  if(isDataLoaded && !film) {
+    return (
+      <NotFound />
+    );
   }
 
-  return (
+  return !isDataLoading && !isDataLoaded ? (
+    <NoConnection />
+  ) : (
     <div className="player">
       <video
         ref={videoRef}
-        src={film.videoLink}
+        src={film?.videoLink}
         className="player__video"
-        poster={film.backgroundImage}
+        poster={film?.backgroundImage}
       >
       </video>
 
@@ -67,10 +75,12 @@ export default function Player(): JSX.Element {
       </button>
 
       <div className="player__controls">
-        <PlayerTimer
-          isPlaying={isPlaying}
-          filmDuration={film.runTime}
-        />
+        {film && (
+          <PlayerTimer
+            isPlaying={isPlaying}
+            filmDuration={film.runTime}
+          />
+        )}
 
         <PlayerButtons
           isPlaying={isPlaying}

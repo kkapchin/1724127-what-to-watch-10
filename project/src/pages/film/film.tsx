@@ -5,21 +5,17 @@ import FilmsList from '../../components/films-list/films-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
+import NoConnection from '../../components/no-connection/no-connection';
 import Tabs from '../../components/tabs/tabs';
 import { DEFAULT_GENRE } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import { changeGenre, setFilm } from '../../store/film-data/film-data';
-import { selectFilm, selectIsDataLoaded, selectIsDataLoading, selectSimilarFilms } from '../../store/film-data/selectors';
-import { FilmType } from '../../types/film-type';
+import { selectFilm, selectFilms, selectIsDataLoaded, selectIsDataLoading, selectSimilarFilms } from '../../store/film-data/selectors';
 import NotFound from '../not-found/not-found';
 
-type FilmProps = {
-  films: FilmType[],
-}
-
-export default function Film({films}: FilmProps): JSX.Element | null {
+export default function Film(): JSX.Element | null {
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -27,7 +23,7 @@ export default function Film({films}: FilmProps): JSX.Element | null {
   const similarFilms = useAppSelector(selectSimilarFilms);
   const isDataLoading = useAppSelector(selectIsDataLoading);
   const isDataLoaded = useAppSelector(selectIsDataLoaded);
-  const favoriteFilmsCount = films.filter((movie) => movie.isFavorite).length;
+  const favoriteFilmsCount = useAppSelector(selectFilms).filter((movie) => movie.isFavorite).length;
 
   useEffect(() => {
     dispatch(changeGenre(DEFAULT_GENRE));
@@ -45,59 +41,57 @@ export default function Film({films}: FilmProps): JSX.Element | null {
     );
   }
 
-  if(!film) {
+  if(isDataLoaded && !film) {
     return (
       <NotFound />
     );
   }
 
-  return (
+  return !isDataLoading && !isDataLoaded ? (
+    <NoConnection />
+  ) : (
     <Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={film?.backgroundImage} alt={film?.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <Header />
 
-          {!isDataLoading && isDataLoaded && (
-            <div className="film-card__wrap">
-              <div className="film-card__desc">
-                <h2 className="film-card__title">{film.name}</h2>
-                <p className="film-card__meta">
-                  <span className="film-card__genre">{film.genre}</span>
-                  <span className="film-card__year">{film.released}</span>
-                </p>
+          <div className="film-card__wrap">
+            <div className="film-card__desc">
+              <h2 className="film-card__title">{film?.name}</h2>
+              <p className="film-card__meta">
+                <span className="film-card__genre">{film?.genre}</span>
+                <span className="film-card__year">{film?.released}</span>
+              </p>
 
-                <FilmButtons
-                  filmsCount={favoriteFilmsCount}
-                  id={id}
-                  isInList={film.isFavorite}
-                />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {!isDataLoading && isDataLoaded && (
-          <div className="film-card__wrap film-card__translate-top">
-            <div className="film-card__info">
-              <div className="film-card__poster film-card__poster--big">
-                <img
-                  src={film.posterImage}
-                  alt={`${film.name} poster`}
-                  width="218"
-                  height="327"
-                />
-              </div>
-
-              <Tabs film={film} />
+              <FilmButtons
+                filmsCount={favoriteFilmsCount}
+                id={id}
+                isInList={film?.isFavorite}
+              />
             </div>
           </div>
-        )}
+        </div>
+
+        <div className="film-card__wrap film-card__translate-top">
+          <div className="film-card__info">
+            <div className="film-card__poster film-card__poster--big">
+              <img
+                src={film?.posterImage}
+                alt={`${film?.name} poster`}
+                width="218"
+                height="327"
+              />
+            </div>
+
+            <Tabs film={film} />
+          </div>
+        </div>
       </section>
 
       <div className="page-content">

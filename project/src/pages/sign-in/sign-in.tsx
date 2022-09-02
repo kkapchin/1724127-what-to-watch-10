@@ -1,13 +1,14 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import Title from '../../components/header/title';
-import { AuthorizationStatus, EMAIL_REGEX, PASSWORD_REGEX } from '../../const';
+import NoConnection from '../../components/no-connection/no-connection';
+import { AppRoute, AuthorizationStatus, EMAIL_REGEX, PASSWORD_REGEX } from '../../const';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { useAppSelector } from '../../hooks/use-app-selector';
-import { browserHistory } from '../../services/browser-history';
-import { loginAction } from '../../store/api-actions';
-import { selectErrorStatus } from '../../store/film-data/selectors';
+import { checkAuthAction, loginAction } from '../../store/api-actions';
+import { selectErrorStatus, selectIsDataLoaded, selectIsDataLoading } from '../../store/film-data/selectors';
 import { selectAuthorizationStatus } from '../../store/user-process/selectors';
 
 export default function SignIn(): JSX.Element {
@@ -18,9 +19,17 @@ export default function SignIn(): JSX.Element {
 
   const errorStatus = useAppSelector(selectErrorStatus);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const isDataLoading = useAppSelector(selectIsDataLoading);
+  const isDataLoaded = useAppSelector(selectIsDataLoaded);
+
+  useEffect(() => {
+    dispatch(checkAuthAction());
+  }, [dispatch]);
 
   if(authorizationStatus === AuthorizationStatus.Auth) {
-    browserHistory.back();
+    return (
+      <Navigate to={AppRoute.Main} replace />
+    );
   }
 
   const isValidEmail = () => {
@@ -56,7 +65,9 @@ export default function SignIn(): JSX.Element {
     }
   };
 
-  return (
+  return !isDataLoading && !isDataLoaded ? (
+    <NoConnection />
+  ) : (
     <div className="user-page">
       <Header
         isTitle

@@ -7,9 +7,9 @@ import { store } from './store';
 import { checkAuthAction, fetchFilmsAction, fetchPromoAction } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';
 
-store.dispatch(fetchFilmsAction());
-store.dispatch(fetchPromoAction());
 store.dispatch(checkAuthAction());
+store.dispatch(fetchPromoAction());
+store.dispatch(fetchFilmsAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

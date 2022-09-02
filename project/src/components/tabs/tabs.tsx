@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab } from '../../const';
 import { useAppSelector } from '../../hooks/use-app-selector';
@@ -17,8 +17,9 @@ const TABS = [
 const DEFAULT_TAB = TABS[0];
 
 type TabsProps = {
-  film: FilmType,
+  film: FilmType | null,
 }
+
 export default function Tabs({ film }: TabsProps): JSX.Element {
 
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
@@ -43,9 +44,13 @@ export default function Tabs({ film }: TabsProps): JSX.Element {
           ))}
         </ul>
       </nav>
-      {activeTab === Tab.Overview && <Overview film={film} />}
-      {activeTab === Tab.Details && <Details film={film} />}
-      {activeTab === Tab.Reviews && <Reviews reviews={reviews} />}
+      {film && (
+        <Fragment>
+          {activeTab === Tab.Overview && <Overview film={film} />}
+          {activeTab === Tab.Details && <Details film={film} />}
+          {activeTab === Tab.Reviews && <Reviews reviews={reviews} />}
+        </Fragment>
+      )}
     </div>
   );
 }

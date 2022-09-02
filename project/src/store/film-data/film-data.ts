@@ -59,6 +59,7 @@ export const filmData = createSlice({
       })
       .addCase(fetchPromoAction.pending, (state) => {
         state.isDataLoading = true;
+        state.isDataLoaded = false;
       })
       .addCase(fetchPromoAction.rejected, (state) => {
         state.isDataLoading = false;
@@ -66,6 +67,7 @@ export const filmData = createSlice({
       .addCase(fetchPromoAction.fulfilled, (state, action) => {
         state.promo = action.payload;
         state.isDataLoading = false;
+        state.isDataLoaded = true;
       })
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
         state.similarFilms = action
@@ -96,7 +98,7 @@ export const filmData = createSlice({
         state.isDataLoading = false;
       })
       .addCase(fetchFavoritesAction.fulfilled, (state, action) => {
-        state.favoriteFilms = action.payload;
+        state.favoriteFilms = action.payload.reverse();
         state.isDataLoading = false;
         state.isDataLoaded = true;
       })

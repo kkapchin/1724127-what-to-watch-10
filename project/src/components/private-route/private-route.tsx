@@ -12,8 +12,8 @@ export default function PrivateRoute({ children }: PrivateRouteProps): JSX.Eleme
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
 
   return (
-    authorizationStatus === AuthorizationStatus.Auth
-      ? children
-      : <Navigate to={AppRoute.SignIn} />
+    authorizationStatus !== AuthorizationStatus.Auth
+      ? (<Navigate to={AppRoute.SignIn} />)
+      : children
   );
 }

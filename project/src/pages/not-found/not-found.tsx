@@ -4,6 +4,7 @@ import Header from '../../components/header/header';
 import { AppRoute } from '../../const';
 
 export default function NotFound(): JSX.Element {
+
   return (
     <div className="user-page">
 
