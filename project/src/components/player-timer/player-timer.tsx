@@ -24,8 +24,8 @@ export default function PlayerTimer({isPlaying, filmDuration}: PlayerTimerProps)
     const displayedHoursCount = hoursCount < 10 ? `0${hoursCount}` : hoursCount;
 
     return !hoursCount
-      ? `- ${displayedMinutesCount}:${displayedSecondsCount}`
-      : `- ${displayedHoursCount}:${displayedMinutesCount}:${displayedSecondsCount}`;
+      ? `-${displayedMinutesCount}:${displayedSecondsCount}`
+      : `-${displayedHoursCount}:${displayedMinutesCount}:${displayedSecondsCount}`;
   };
 
   useEffect(() => {
